@@ -14,7 +14,7 @@
       Add a new cocktail
     </h2>
 
-    <form action="/insert_cocktail" method="post">
+    <form action="/insert_cocktail" method="post" enctype="multipart/form-data">>
       <div>
         <label for="cocktail_name_box">
           Cocktail name
@@ -60,7 +60,7 @@
           Image url
         </label>
 
-        <input type="text" id="image_url_box" name="query_image_url">
+        <input type="file" id="image_url_box" name="query_image_url">
       </div>
 
       <div>

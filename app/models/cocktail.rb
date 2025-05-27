@@ -14,4 +14,5 @@
 #  user_id       :integer
 #
 class Cocktail < ApplicationRecord
+  mount_uploader :image_url, ImageUploader
 end
