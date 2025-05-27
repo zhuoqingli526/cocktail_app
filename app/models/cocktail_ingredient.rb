@@ -1,0 +1,2 @@
+class CocktailIngredient < ApplicationRecord
+end

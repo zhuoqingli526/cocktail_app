@@ -1,0 +1,116 @@
+<div>
+  <div>
+    <h1>
+      Ingredient #<%= @the_ingredient.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/ingredients">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_ingredient/<%= @the_ingredient.id %>">
+          Delete ingredient
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_ingredient.name %>
+      </dd>
+
+      <dt>
+        Description
+      </dt>
+      <dd>
+        <%= @the_ingredient.description %>
+      </dd>
+
+      <dt>
+        Abv
+      </dt>
+      <dd>
+        <%= @the_ingredient.abv %>
+      </dd>
+
+      <dt>
+        Ingredient category
+      </dt>
+      <dd>
+        <%= @the_ingredient.ingredient_category_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_ingredient.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_ingredient.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit ingredient
+    </h2>
+
+    <form action="/modify_ingredient/<%= @the_ingredient.id %>"  method="post" >
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_ingredient.name %>">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description" value="<%= @the_ingredient.description %>">
+      </div>
+
+      <div>
+        <label for="abv_box">
+          Abv
+        </label>
+
+        <input type="text" id="abv_box" name="query_abv" value="<%= @the_ingredient.abv %>">
+      </div>
+
+      <div>
+        <label for="ingredient_category_id_box">
+          Ingredient category
+        </label>
+
+        <input type="text" id="ingredient_category_id_box" name="query_ingredient_category_id" value="<%= @the_ingredient.ingredient_category_id %>">
+      </div>
+
+      <button>
+        Update ingredient
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

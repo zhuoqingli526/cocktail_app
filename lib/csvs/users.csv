@@ -1,0 +1,31 @@
+id,username,email,password,bio,avatar_image,created_at,updated_at
+1,alex_mixes,alex_mixes@example.com,password123,Alex enjoys teaching home bartending.,,2023/8/4 13:56,2025/1/15 03:02
+2,jordan_pours,jordan_pours@example.com,password123,Jordan enjoys teaching home bartending.,,2023/8/20 12:20,2025/3/10 03:30
+3,taylor_mixes,taylor_mixes@example.com,password123,Taylor enjoys judging tiki competitions.,,2024/7/18 08:11,2024/8/7 15:02
+4,morgan_stirs,morgan_stirs@example.com,password123,Morgan enjoys photographing cocktail art.,,2025/3/20 16:42,2023/7/8 04:10
+5,casey_shakes,casey_shakes@example.com,password123,Casey enjoys growing rooftop herbs.,,2024/2/14 18:50,2024/8/6 13:45
+6,riley_stirs,riley_stirs@example.com,password123,Riley enjoys hosting speakeasy pop__ps.,,2023/10/3 01:41,2023/5/30 03:48
+7,jamie_pours,jamie_pours@example.com,password123,Jamie enjoys experimenting with sous__ide infusions.,,2025/4/10 07:31,2024/9/4 00:43
+8,drew_pours,drew_pours@example.com,password123,Drew enjoys experimenting with sous__ide infusions.,,2023/6/2 23:36,2024/1/28 21:14
+9,quinn_pours,quinn_pours@example.com,password123,Quinn enjoys collecting vintage glassware.,,2025/5/1 02:31,2023/7/1 22:47
+10,rowan_mixes,rowan_mixes@example.com,password123,Rowan enjoys growing rooftop herbs.,,2023/9/3 22:07,2025/1/31 12:40
+11,lee_mixes,lee_mixes@example.com,password123,Lee enjoys sculpting ice spheres.,,2025/5/5 13:44,2024/4/27 08:19
+12,avery_pours,avery_pours@example.com,password123,Avery enjoys teaching home bartending.,,2024/5/27 08:54,2025/3/9 15:05
+13,peyton_mixes,peyton_mixes@example.com,password123,Peyton enjoys sculpting ice spheres.,,2024/2/19 15:15,2024/7/7 01:18
+14,kai_pours,kai_pours@example.com,password123,Kai enjoys pairing drinks with vinyl.,,2025/2/24 18:17,2024/9/12 19:25
+15,skyler_stirs,skyler_stirs@example.com,password123,Skyler enjoys foraging rare bitters.,,2024/4/2 04:21,2025/4/21 10:17
+16,cameron_pours,cameron_pours@example.com,password123,Cameron enjoys traveling for rum festivals.,,2024/10/5 16:25,2025/2/5 11:53
+17,reese_pours,reese_pours@example.com,password123,Reese enjoys infusing spirits with tea.,,2024/10/29 01:51,2024/4/18 16:38
+18,harper_stirs,harper_stirs@example.com,password123,Harper enjoys infusing spirits with tea.,,2023/6/22 14:13,2025/3/17 00:15
+19,phoenix_shakes,phoenix_shakes@example.com,password123,Phoenix enjoys experimenting with sous__ide infusions.,,2025/5/7 12:15,2024/6/10 01:13
+20,sage_stirs,sage_stirs@example.com,password123,Sage enjoys smoking cocktails tableside.,,2024/2/12 23:39,2024/2/14 13:14
+21,river_pours,river_pours@example.com,password123,River enjoys experimenting with sous__ide infusions.,,2024/12/10 12:28,2024/5/17 15:25
+22,dakota_pours,dakota_pours@example.com,password123,Dakota enjoys building a home bitters library.,,2025/1/22 17:24,2024/2/13 22:08
+23,justice_mixes,justice_mixes@example.com,password123,Justice enjoys pairing drinks with vinyl.,,2024/8/26 04:15,2023/8/5 08:02
+24,logan_stirs,logan_stirs@example.com,password123,Logan enjoys foraging rare bitters.,,2025/4/23 22:06,2024/2/26 04:48
+25,parker_shakes,parker_shakes@example.com,password123,Parker enjoys judging tiki competitions.,,2024/7/15 01:48,2024/6/21 00:07
+26,sawyer_mixes,sawyer_mixes@example.com,password123,Sawyer enjoys sculpting ice spheres.,,2024/6/16 04:01,2025/1/11 10:09
+27,emerson_shakes,emerson_shakes@example.com,password123,Emerson enjoys traveling for rum festivals.,,2024/6/7 15:33,2023/10/13 19:10
+28,finley_shakes,finley_shakes@example.com,password123,Finley enjoys traveling for rum festivals.,,2024/5/8 02:44,2024/3/17 22:05
+29,hayden_pours,hayden_pours@example.com,password123,Hayden enjoys studying pre__rohibition classics.,,2023/6/5 17:54,2023/9/10 12:10
+30,remy_pours,remy_pours@example.com,password123,Remy enjoys pairing drinks with vinyl.,,2023/6/14 04:17,2023/12/13 23:36

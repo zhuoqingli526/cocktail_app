@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      List of all ingredient categories
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new ingredient category
+    </h2>
+
+    <form action="/insert_ingredient_category" method="post">
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name">
+      </div>
+
+      <button>
+        Create ingredient category
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_ingredient_categories.each do |an_ingredient_category| %>
+      <tr>
+        <td>
+          <%= an_ingredient_category.id %>
+        </td>
+
+        <td>
+          <%= an_ingredient_category.name %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(an_ingredient_category.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(an_ingredient_category.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/ingredient_categories/<%= an_ingredient_category.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

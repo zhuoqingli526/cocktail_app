@@ -1,0 +1,182 @@
+<div>
+  <div>
+    <h1>
+      List of all cocktails
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new cocktail
+    </h2>
+
+    <form action="/insert_cocktail" method="post">
+      <div>
+        <label for="cocktail_name_box">
+          Cocktail name
+        </label>
+
+        <input type="text" id="cocktail_name_box" name="query_cocktail_name">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description">
+      </div>
+
+      <div>
+        <label for="instructions_box">
+          Instructions
+        </label>
+
+        <input type="text" id="instructions_box" name="query_instructions">
+      </div>
+
+      <div>
+        <label for="abv_box">
+          Abv
+        </label>
+
+        <input type="text" id="abv_box" name="query_abv">
+      </div>
+
+      <div>
+        <label for="taste_box">
+          Taste
+        </label>
+
+        <input type="text" id="taste_box" name="query_taste">
+      </div>
+
+      <div>
+        <label for="image_url_box">
+          Image url
+        </label>
+
+        <input type="text" id="image_url_box" name="query_image_url">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <button>
+        Create cocktail
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Cocktail name
+        </th>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+          Instructions
+        </th>
+
+        <th>
+          Abv
+        </th>
+
+        <th>
+          Taste
+        </th>
+
+        <th>
+          Image url
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_cocktails.each do |a_cocktail| %>
+      <tr>
+        <td>
+          <%= a_cocktail.id %>
+        </td>
+
+        <td>
+          <%= a_cocktail.cocktail_name %>
+        </td>
+
+        <td>
+          <%= a_cocktail.description %>
+        </td>
+
+        <td>
+          <%= a_cocktail.instructions %>
+        </td>
+
+        <td>
+          <%= a_cocktail.abv %>
+        </td>
+
+        <td>
+          <%= a_cocktail.taste %>
+        </td>
+
+        <td>
+          <%= a_cocktail.image_url %>
+        </td>
+
+        <td>
+          <%= a_cocktail.user_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_cocktail.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_cocktail.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/cocktails/<%= a_cocktail.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

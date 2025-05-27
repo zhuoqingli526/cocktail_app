@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Cocktail ingredient #<%= @the_cocktail_ingredient.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/cocktail_ingredients">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_cocktail_ingredient/<%= @the_cocktail_ingredient.id %>">
+          Delete cocktail ingredient
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Cocktail
+      </dt>
+      <dd>
+        <%= @the_cocktail_ingredient.cocktail_id %>
+      </dd>
+
+      <dt>
+        Ingredient
+      </dt>
+      <dd>
+        <%= @the_cocktail_ingredient.ingredient_id %>
+      </dd>
+
+      <dt>
+        Unit ml
+      </dt>
+      <dd>
+        <%= @the_cocktail_ingredient.unit_ml %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_cocktail_ingredient.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_cocktail_ingredient.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit cocktail ingredient
+    </h2>
+
+    <form action="/modify_cocktail_ingredient/<%= @the_cocktail_ingredient.id %>"  method="post" >
+      <div>
+        <label for="cocktail_id_box">
+          Cocktail
+        </label>
+
+        <input type="text" id="cocktail_id_box" name="query_cocktail_id" value="<%= @the_cocktail_ingredient.cocktail_id %>">
+      </div>
+
+      <div>
+        <label for="ingredient_id_box">
+          Ingredient
+        </label>
+
+        <input type="text" id="ingredient_id_box" name="query_ingredient_id" value="<%= @the_cocktail_ingredient.ingredient_id %>">
+      </div>
+
+      <div>
+        <label for="unit_ml_box">
+          Unit ml
+        </label>
+
+        <input type="text" id="unit_ml_box" name="query_unit_ml" value="<%= @the_cocktail_ingredient.unit_ml %>">
+      </div>
+
+      <button>
+        Update cocktail ingredient
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

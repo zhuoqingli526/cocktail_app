@@ -1,0 +1,161 @@
+<div>
+  <div>
+    <h1>
+      Cocktail #<%= @the_cocktail.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/cocktails">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_cocktail/<%= @the_cocktail.id %>">
+          Delete cocktail
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Cocktail name
+      </dt>
+      <dd>
+        <%= @the_cocktail.cocktail_name %>
+      </dd>
+
+      <dt>
+        Description
+      </dt>
+      <dd>
+        <%= @the_cocktail.description %>
+      </dd>
+
+      <dt>
+        Instructions
+      </dt>
+      <dd>
+        <%= @the_cocktail.instructions %>
+      </dd>
+
+      <dt>
+        Abv
+      </dt>
+      <dd>
+        <%= @the_cocktail.abv %>
+      </dd>
+
+      <dt>
+        Taste
+      </dt>
+      <dd>
+        <%= @the_cocktail.taste %>
+      </dd>
+
+      <dt>
+        Image url
+      </dt>
+      <dd>
+        <%= @the_cocktail.image_url %>
+      </dd>
+
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_cocktail.user_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_cocktail.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_cocktail.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit cocktail
+    </h2>
+
+    <form action="/modify_cocktail/<%= @the_cocktail.id %>"  method="post" >
+      <div>
+        <label for="cocktail_name_box">
+          Cocktail name
+        </label>
+
+        <input type="text" id="cocktail_name_box" name="query_cocktail_name" value="<%= @the_cocktail.cocktail_name %>">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description" value="<%= @the_cocktail.description %>">
+      </div>
+
+      <div>
+        <label for="instructions_box">
+          Instructions
+        </label>
+
+        <input type="text" id="instructions_box" name="query_instructions" value="<%= @the_cocktail.instructions %>">
+      </div>
+
+      <div>
+        <label for="abv_box">
+          Abv
+        </label>
+
+        <input type="text" id="abv_box" name="query_abv" value="<%= @the_cocktail.abv %>">
+      </div>
+
+      <div>
+        <label for="taste_box">
+          Taste
+        </label>
+
+        <input type="text" id="taste_box" name="query_taste" value="<%= @the_cocktail.taste %>">
+      </div>
+
+      <div>
+        <label for="image_url_box">
+          Image url
+        </label>
+
+        <input type="text" id="image_url_box" name="query_image_url" value="<%= @the_cocktail.image_url %>">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_cocktail.user_id %>">
+      </div>
+
+      <button>
+        Update cocktail
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

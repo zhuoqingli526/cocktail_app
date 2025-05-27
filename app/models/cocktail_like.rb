@@ -1,0 +1,2 @@
+class CocktailLike < ApplicationRecord
+end

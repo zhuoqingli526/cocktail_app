@@ -1,0 +1,131 @@
+<div>
+  <div>
+    <h1>
+      User #<%= @the_user.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/users">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_user/<%= @the_user.id %>">
+          Delete user
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Username
+      </dt>
+      <dd>
+        <%= @the_user.username %>
+      </dd>
+
+      <dt>
+        Bio
+      </dt>
+      <dd>
+        <%= @the_user.bio %>
+      </dd>
+
+      <dt>
+        Avatar image
+      </dt>
+      <dd>
+        <%= @the_user.avatar_image %>
+      </dd>
+
+      <dt>
+        Email
+      </dt>
+      <dd>
+        <%= @the_user.email %>
+      </dd>
+
+      <dt>
+        Password
+      </dt>
+      <dd>
+        <%= @the_user.password %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_user.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_user.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit user
+    </h2>
+
+    <form action="/modify_user/<%= @the_user.id %>"  method="post" >
+      <div>
+        <label for="username_box">
+          Username
+        </label>
+
+        <input type="text" id="username_box" name="query_username" value="<%= @the_user.username %>">
+      </div>
+
+      <div>
+        <label for="bio_box">
+          Bio
+        </label>
+
+        <input type="text" id="bio_box" name="query_bio" value="<%= @the_user.bio %>">
+      </div>
+
+      <div>
+        <label for="avatar_image_box">
+          Avatar image
+        </label>
+
+        <input type="text" id="avatar_image_box" name="query_avatar_image" value="<%= @the_user.avatar_image %>">
+      </div>
+
+      <div>
+        <label for="email_box">
+          Email
+        </label>
+
+        <input type="text" id="email_box" name="query_email" value="<%= @the_user.email %>">
+      </div>
+
+      <div>
+        <label for="password_box">
+          Password
+        </label>
+
+        <input type="text" id="password_box" name="query_password" value="<%= @the_user.password %>">
+      </div>
+
+      <button>
+        Update user
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

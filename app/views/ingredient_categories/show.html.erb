@@ -1,0 +1,71 @@
+<div>
+  <div>
+    <h1>
+      Ingredient category #<%= @the_ingredient_category.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/ingredient_categories">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_ingredient_category/<%= @the_ingredient_category.id %>">
+          Delete ingredient category
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_ingredient_category.name %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_ingredient_category.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_ingredient_category.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit ingredient category
+    </h2>
+
+    <form action="/modify_ingredient_category/<%= @the_ingredient_category.id %>"  method="post" >
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_ingredient_category.name %>">
+      </div>
+
+      <button>
+        Update ingredient category
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

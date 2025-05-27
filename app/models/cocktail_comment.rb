@@ -1,0 +1,2 @@
+class CocktailComment < ApplicationRecord
+end

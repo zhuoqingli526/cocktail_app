@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Cocktail comment #<%= @the_cocktail_comment.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/cocktail_comments">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_cocktail_comment/<%= @the_cocktail_comment.id %>">
+          Delete cocktail comment
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Cocktail
+      </dt>
+      <dd>
+        <%= @the_cocktail_comment.cocktail_id %>
+      </dd>
+
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_cocktail_comment.user_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_cocktail_comment.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_cocktail_comment.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit cocktail comment
+    </h2>
+
+    <form action="/modify_cocktail_comment/<%= @the_cocktail_comment.id %>"  method="post" >
+      <div>
+        <label for="cocktail_id_box">
+          Cocktail
+        </label>
+
+        <input type="text" id="cocktail_id_box" name="query_cocktail_id" value="<%= @the_cocktail_comment.cocktail_id %>">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_cocktail_comment.user_id %>">
+      </div>
+
+      <button>
+        Update cocktail comment
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

@@ -1,0 +1,102 @@
+<div>
+  <div>
+    <h1>
+      List of all cocktail likes
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new cocktail like
+    </h2>
+
+    <form action="/insert_cocktail_like" method="post">
+      <div>
+        <label for="cocktail_id_box">
+          Cocktail
+        </label>
+
+        <input type="text" id="cocktail_id_box" name="query_cocktail_id">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <button>
+        Create cocktail like
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Cocktail
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_cocktail_likes.each do |a_cocktail_like| %>
+      <tr>
+        <td>
+          <%= a_cocktail_like.id %>
+        </td>
+
+        <td>
+          <%= a_cocktail_like.cocktail_id %>
+        </td>
+
+        <td>
+          <%= a_cocktail_like.user_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_cocktail_like.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_cocktail_like.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/cocktail_likes/<%= a_cocktail_like.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
