@@ -27,10 +27,26 @@
       </dd>
 
       <dt>
+        Image
+      </dt>
+      <dd>
+        <img src="<%= @the_cocktail.image_url.url %>" width="200" height="300">
+      </dd>
+
+      <dt>
         Description
       </dt>
       <dd>
         <%= @the_cocktail.description %>
+      </dd>
+
+      <dt>
+        Ingredients
+      </dt>
+      <dd>
+        <% @the_cocktail.cocktail_ingredients.includes(:ingredient).each do |a_ingredient| %>
+          <li><%= "#{a_ingredient.ingredient.name} – #{a_ingredient.unit_ml} ml" %></li>
+        <% end %>
       </dd>
 
       <dt>
@@ -55,20 +71,6 @@
       </dd>
 
       <dt>
-        Image url
-      </dt>
-      <dd>
-        <img src="<%= @the_cocktail.image_url.url %>">
-      </dd>
-
-      <dt>
-        User
-      </dt>
-      <dd>
-        <%= @the_cocktail.user_id %>
-      </dd>
-
-      <dt>
         Created at
       </dt>
       <dd>
@@ -76,86 +78,76 @@
       </dd>
 
       <dt>
-        Updated at
+        Likes count
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_cocktail.updated_at) %> ago
+        <%= @the_cocktail.likes.count %>
       </dd>
+
+      <dt>
+        Comments count
+      </dt>
+      <dd>
+        <%= @the_cocktail.comments.count %>
+      </dd>
+
+      <dt>
+        Creator
+      </dt>
+      <dd>
+        <% the_user = @the_cocktail.user %>
+        <%= the_user.username %>
+      </dd>
+
+      <dt>
+        Fans
+      </dt>
+      <dd>
+        <%= "Liked by: " + @the_cocktail.likes.map { |like| like.user.username }.join(', ') %>
+      </dd>
+
+
+      <dt>Add a fan</dt>
+      <dd>
+
+        <form action="/insert_like" method="post">
+          <input type="hidden" value="777" name="query_photo_id">
+          <button>Like</button>
+        </form>
+      </dd>
+
+
     </dl>
   </div>
 </div>
 
 <hr>
 
+<h2>Comments</h2>
 
-<div>
-  <div>
-    <h2>
-      Edit cocktail
-    </h2>
+<table border="1">
+  <tr>
+    <th>Commenter</th>
+    <th>Comment</th>
+    <th>Posted</th>
+  </tr>
+  
+  <% @the_cocktail.comments.each do |a_comment| %>
+    <tr>
+      <td><%= a_comment.user.username %></td>
+      <td><%= a_comment.comment_text %></td>
+      <td><%= a_comment.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+    </tr>  
+  <% end %>
+</table>
 
-    <form action="/modify_cocktail/<%= @the_cocktail.id %>"  method="post" enctype="multipart/form-data" >
-      <div>
-        <label for="cocktail_name_box">
-          Cocktail name
-        </label>
+<h3>Add a new comment</h3>
 
-        <input type="text" id="cocktail_name_box" name="query_cocktail_name" value="<%= @the_cocktail.cocktail_name %>">
-      </div>
+<form action="/insert_comment" method="post">
+  <input type="hidden" value="777" name="query_photo_id">
+  
+  <label for="browser_comment">Comment</label>
+  <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
 
-      <div>
-        <label for="description_box">
-          Description
-        </label>
-
-        <input type="text" id="description_box" name="query_description" value="<%= @the_cocktail.description %>">
-      </div>
-
-      <div>
-        <label for="instructions_box">
-          Instructions
-        </label>
-
-        <input type="text" id="instructions_box" name="query_instructions" value="<%= @the_cocktail.instructions %>">
-      </div>
-
-      <div>
-        <label for="abv_box">
-          Abv
-        </label>
-
-        <input type="text" id="abv_box" name="query_abv" value="<%= @the_cocktail.abv %>">
-      </div>
-
-      <div>
-        <label for="taste_box">
-          Taste
-        </label>
-
-        <input type="text" id="taste_box" name="query_taste" value="<%= @the_cocktail.taste %>">
-      </div>
-
-      <div>
-        <label for="image_url_box">
-          Image
-        </label>
-
-        <input type="file"" id="image_url_box" name="query_image_url" value="<%= @the_cocktail.image_url %>">
-      </div>
-
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_cocktail.user_id %>">
-      </div>
-
-      <button>
-        Update cocktail
-      </button>
-    </form>
-  </div>
-</div>
-
-<hr>
+  <button>Add comment</button>
+</form>

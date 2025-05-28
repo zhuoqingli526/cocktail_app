@@ -112,16 +112,13 @@
         </th>
 
         <th>
-          User
+          Creator
         </th>
 
         <th>
           Created at
         </th>
 
-        <th>
-          Updated at
-        </th>
 
         <th>
         </th>
@@ -158,14 +155,12 @@
         </td>
 
         <td>
-          <%= a_cocktail.user_id %>
+          <% the_user = a_cocktail.user %>
+          <%= the_user.username %>
         </td>
 
         <td>
           <%= time_ago_in_words(a_cocktail.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_cocktail.updated_at) %> ago
         </td>
 
         <td>

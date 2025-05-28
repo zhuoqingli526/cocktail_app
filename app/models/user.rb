@@ -32,4 +32,5 @@ class User < ApplicationRecord
   has_many :followers, through: :receive_follow_requests, source: :sender
   has_many :liked_cocktails, through: :likes, source: :cocktail
   has_many :commented_cocktails, through: :comments, source: :cocktail
+  has_many  :cocktails, class_name: "Cocktail", foreign_key: "user_id", dependent: :destroy
 end

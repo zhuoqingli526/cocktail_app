@@ -16,10 +16,11 @@
 class Cocktail < ApplicationRecord
   mount_uploader :image_url, ImageUploader
 
+  belongs_to :user, required: true, class_name: "User", foreign_key: "user_id"
   has_many  :likes, class_name: "CocktailLike", foreign_key: "cocktail_id", dependent: :destroy
   has_many  :comments, class_name: "CocktailComment", foreign_key: "cocktail_id", dependent: :destroy
   has_many  :cocktail_ingredients, class_name: "CocktailIngredient", foreign_key: "cocktail_id", dependent: :destroy
   has_many :votes, through: :likes, source: :user
   has_many :commenters, through: :comments, source: :user
-  has_many :commenters, through: :comments, source: :user
+  has_many :ingredients, through: :cocktail_ingredients, source: :ingredient
 end
