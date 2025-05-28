@@ -32,41 +32,6 @@
       <dd>
         <%= @the_user.bio %>
       </dd>
-
-      <dt>
-        Avatar image
-      </dt>
-      <dd>
-        <%= @the_user.avatar_image %>
-      </dd>
-
-      <dt>
-        Email
-      </dt>
-      <dd>
-        <%= @the_user.email %>
-      </dd>
-
-      <dt>
-        Password
-      </dt>
-      <dd>
-        <%= @the_user.password %>
-      </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_user.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_user.updated_at) %> ago
-      </dd>
     </dl>
   </div>
 </div>
@@ -97,13 +62,6 @@
         <input type="text" id="bio_box" name="query_bio" value="<%= @the_user.bio %>">
       </div>
 
-      <div>
-        <label for="avatar_image_box">
-          Avatar image
-        </label>
-
-        <input type="text" id="avatar_image_box" name="query_avatar_image" value="<%= @the_user.avatar_image %>">
-      </div>
 
       <div>
         <label for="email_box">

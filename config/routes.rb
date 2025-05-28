@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  get("/", { :controller => "ingredient_categories", :action => "homepage" })
+
+  root to: "home#index"
+
+  #get("/", { :controller => "home", :action => "index" })
 
   # Routes for the Ingredient category resource:
   

@@ -32,14 +32,6 @@
       </div>
 
       <div>
-        <label for="avatar_image_box">
-          Avatar image
-        </label>
-
-        <input type="text" id="avatar_image_box" name="query_avatar_image">
-      </div>
-
-      <div>
         <label for="email_box">
           Email
         </label>
@@ -79,28 +71,6 @@
           Bio
         </th>
 
-        <th>
-          Avatar image
-        </th>
-
-        <th>
-          Email
-        </th>
-
-        <th>
-          Password
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
       </tr>
 
       <% @list_of_users.each do |a_user| %>
@@ -117,24 +87,6 @@
           <%= a_user.bio %>
         </td>
 
-        <td>
-          <%= a_user.avatar_image %>
-        </td>
-
-        <td>
-          <%= a_user.email %>
-        </td>
-
-        <td>
-          <%= a_user.password %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_user.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_user.updated_at) %> ago
-        </td>
 
         <td>
           <a href="/users/<%= a_user.id %>">

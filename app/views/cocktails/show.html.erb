@@ -58,7 +58,7 @@
         Image url
       </dt>
       <dd>
-        <%= @the_cocktail.image_url %>
+        <img src="<%= @the_cocktail.image_url.url %>">
       </dd>
 
       <dt>
@@ -94,7 +94,7 @@
       Edit cocktail
     </h2>
 
-    <form action="/modify_cocktail/<%= @the_cocktail.id %>"  method="post" >
+    <form action="/modify_cocktail/<%= @the_cocktail.id %>"  method="post" enctype="multipart/form-data" >
       <div>
         <label for="cocktail_name_box">
           Cocktail name
@@ -137,10 +137,10 @@
 
       <div>
         <label for="image_url_box">
-          Image url
+          Image
         </label>
 
-        <input type="text" id="image_url_box" name="query_image_url" value="<%= @the_cocktail.image_url %>">
+        <input type="file"" id="image_url_box" name="query_image_url" value="<%= @the_cocktail.image_url %>">
       </div>
 
       <div>
