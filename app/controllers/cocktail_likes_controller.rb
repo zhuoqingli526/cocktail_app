@@ -24,33 +24,19 @@ class CocktailLikesController < ApplicationController
 
     if the_cocktail_like.valid?
       the_cocktail_like.save
-      redirect_to("/cocktail_likes", { :notice => "Cocktail like created successfully." })
+      redirect_to("/cocktails/#{the_cocktail_like.cocktail_id}", { :notice => "Like created successfully." })
     else
-      redirect_to("/cocktail_likes", { :alert => the_cocktail_like.errors.full_messages.to_sentence })
+      redirect_to("/cocktails/#{the_cocktail_like.cocktail_id}", { :alert => the_cocktail_like.errors.full_messages.to_sentence })
     end
   end
 
-  def update
-    the_id = params.fetch("path_id")
-    the_cocktail_like = CocktailLike.where({ :id => the_id }).at(0)
-
-    the_cocktail_like.cocktail_id = params.fetch("query_cocktail_id")
-    the_cocktail_like.user_id = params.fetch("query_user_id")
-
-    if the_cocktail_like.valid?
-      the_cocktail_like.save
-      redirect_to("/cocktail_likes/#{the_cocktail_like.id}", { :notice => "Cocktail like updated successfully."} )
-    else
-      redirect_to("/cocktail_likes/#{the_cocktail_like.id}", { :alert => the_cocktail_like.errors.full_messages.to_sentence })
-    end
-  end
 
   def destroy
-    the_id = params.fetch("path_id")
-    the_cocktail_like = CocktailLike.where({ :id => the_id }).at(0)
+    like = CocktailLike.find(params.fetch("path_id"))
+    cocktail_id = like.cocktail_id
 
-    the_cocktail_like.destroy
+    like.destroy
 
-    redirect_to("/cocktail_likes", { :notice => "Cocktail like deleted successfully."} )
+    redirect_to("/cocktails/#{cocktail_id}", notice: "Like deleted successfully.")
   end
 end

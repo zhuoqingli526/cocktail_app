@@ -21,29 +21,16 @@ class CocktailCommentsController < ApplicationController
     the_cocktail_comment = CocktailComment.new
     the_cocktail_comment.cocktail_id = params.fetch("query_cocktail_id")
     the_cocktail_comment.user_id = params.fetch("query_user_id")
+    the_cocktail_comment.comment_text = params.fetch("query_body")
 
     if the_cocktail_comment.valid?
       the_cocktail_comment.save
-      redirect_to("/cocktail_comments", { :notice => "Cocktail comment created successfully." })
+      redirect_to("/cocktails/#{the_cocktail_comment.cocktail_id}", { :notice => "Cocktail comment created successfully." })
     else
-      redirect_to("/cocktail_comments", { :alert => the_cocktail_comment.errors.full_messages.to_sentence })
+      redirect_to("/cocktails/#{the_cocktail_comment.cocktail_id}", { :alert => the_cocktail_comment.errors.full_messages.to_sentence })
     end
   end
 
-  def update
-    the_id = params.fetch("path_id")
-    the_cocktail_comment = CocktailComment.where({ :id => the_id }).at(0)
-
-    the_cocktail_comment.cocktail_id = params.fetch("query_cocktail_id")
-    the_cocktail_comment.user_id = params.fetch("query_user_id")
-
-    if the_cocktail_comment.valid?
-      the_cocktail_comment.save
-      redirect_to("/cocktail_comments/#{the_cocktail_comment.id}", { :notice => "Cocktail comment updated successfully."} )
-    else
-      redirect_to("/cocktail_comments/#{the_cocktail_comment.id}", { :alert => the_cocktail_comment.errors.full_messages.to_sentence })
-    end
-  end
 
   def destroy
     the_id = params.fetch("path_id")

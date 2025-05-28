@@ -1,19 +1,13 @@
 <div>
   <div>
     <h1>
-      Cocktail #<%= @the_cocktail.id %> details
+      Cocktail details
     </h1>
 
     <div>
       <div>
         <a href="/cocktails">
           Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_cocktail/<%= @the_cocktail.id %>">
-          Delete cocktail
         </a>
       </div>
     </div>
@@ -109,12 +103,22 @@
 
       <dt>Add a fan</dt>
       <dd>
+        <% existing_like = @the_cocktail.likes.find_by(user_id: current_user.id) %>
 
-        <form action="/insert_like" method="post">
-          <input type="hidden" value="777" name="query_photo_id">
-          <button>Like</button>
-        </form>
+        <% if existing_like %>
+          <form action="/delete_cocktail_like/<%= existing_like.id %>" method="get">
+            <button>Unlike</button>
+          </form>
+        <% else %>
+          <form action="/insert_cocktail_like" method="post">
+            <input type="hidden" name="query_cocktail_id" value="<%= @the_cocktail.id %>">
+            <input type="hidden" name="query_user_id"    value="<%= current_user.id %>">
+            <button>Like</button>
+          </form>
+        <% end %>
       </dd>
+
+      
 
 
     </dl>
@@ -143,8 +147,9 @@
 
 <h3>Add a new comment</h3>
 
-<form action="/insert_comment" method="post">
-  <input type="hidden" value="777" name="query_photo_id">
+<form action="/insert_cocktail_comment" method="post">
+  <input type="hidden" name="query_cocktail_id" value="<%= @the_cocktail.id %>">
+  <input type="hidden" name="query_user_id" value="<%= current_user.id %>">
   
   <label for="browser_comment">Comment</label>
   <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
