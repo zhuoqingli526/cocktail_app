@@ -10,9 +10,50 @@
     <%= javascript_importmap_tags %>
   </head>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
   <body>
+    <nav>
+    <ul>
+    <% if current_user.present? %>
+      <li>
+        <a href="/users/sign_out">Sign out</a>
+      </li>
+      
+      <li>
+        <a href="/users/edit">Edit profile</a>
+      </li>
+    <% else %>
+      <li>
+        <a href="/users/sign_up">Sign up</a>
+      </li>
+
+      <li>
+        <a href="/users/sign_in">Sign in</a>
+      </li>
+    <% end %>
+    </ul>
+
+    </nav>
+
+    <hr>
+
+    <% if notice.present? %>
+      <div style="color: green">
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div style="color: red">
+        <%= alert %>
+      </div>
+    <% end %>
+      
+
     <%= yield %>
+
+
+
+
+
   </body>
 </html>

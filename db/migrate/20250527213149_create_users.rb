@@ -5,7 +5,8 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :bio
       t.string :avatar_image
       t.string :email
-      t.string :password
+      # ❌ Devise does not use this
+      # t.string :password
 
       t.timestamps
     end
