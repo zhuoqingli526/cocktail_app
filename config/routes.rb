@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
+  get("/", { :controller => "ingredient_categories", :action => "homepage" })
+
   # Routes for the Ingredient category resource:
+  
 
   # CREATE
   post("/insert_ingredient_category", { :controller => "ingredient_categories", :action => "create" })
