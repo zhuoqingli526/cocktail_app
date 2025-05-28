@@ -59,4 +59,31 @@ class UsersController < ApplicationController
 
     redirect_to("/users", { :notice => "User deleted successfully."} )
   end
+
+  def liked_cocktails
+    @the_user = User.find_by(username: params[:username])
+    @cocktails = @the_user.liked_cocktails
+
+    render({ template: "users/liked_cocktails" })
+  end
+
+
+  def feed
+    @the_user = User.find_by(username: params[:username])
+    leader_ids  = @the_user.leaders.pluck(:id)
+    @the_leader_cocktails = Cocktail.where({ user_id: leader_ids })
+                              .order({ created_at: :desc })
+
+    render({ template: "users/feed" })
+  end
+
+  def popular_picks
+    @the_user = User.find_by(username: params[:username])
+    excluded_user_ids = @the_user.leaders.pluck(:id) + [@the_user.id]
+
+    all_other_cocktails = Cocktail.where.not(user_id: excluded_user_ids)
+    @popular_cocktails = all_other_cocktails.sort_by { |cocktail| -cocktail.likes.count }
+    render({ template: "users/popular_picks" })
+
+  end
 end

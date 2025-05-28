@@ -38,7 +38,6 @@
 </div>
 
 
-
   <nav>
     <ul>
       <li>
@@ -57,12 +56,13 @@
 
 
 
-<h2>Created cocktails</h2>
+<h2>Liked cocktails (<%= @the_user.liked_cocktails.count %>)</h2>
 
 <div>
   <div>
     <table border="1">
       <tr>
+
         <th>
           Cocktail name
         </th>
@@ -88,15 +88,25 @@
         </th>
 
         <th>
+          Creator
+        </th>
+
+        <th>
           Created at
+        </th>
+
+        <th>
+          Likes
         </th>
 
         <th>
         </th>
       </tr>
 
-      <% @the_user.cocktails.each do |a_cocktail| %>
+      <% @the_user.liked_cocktails.each do |a_cocktail| %>
       <tr>
+
+
         <td>
           <%= a_cocktail.cocktail_name %>
         </td>
@@ -122,7 +132,17 @@
         </td>
 
         <td>
+          <% the_user = a_cocktail.user %>
+          <%= the_user.username %>
+        </td>
+
+
+        <td>
           <%= time_ago_in_words(a_cocktail.created_at) %> ago
+        </td>
+
+        <td>
+          <%= a_cocktail.likes.count %>
         </td>
 
         <td>

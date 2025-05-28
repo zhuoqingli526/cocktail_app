@@ -4,11 +4,8 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  #get("/", { :controller => "home", :action => "index" })
-
   # Routes for the Ingredient category resource:
   
-
   # CREATE
   post("/insert_ingredient_category", { :controller => "ingredient_categories", :action => "create" })
           
@@ -139,6 +136,11 @@ Rails.application.routes.draw do
 
   # Routes for the User resource:
 
+
+  get("/users/:username/liked_cocktails", { :controller => "users", :action => "liked_cocktails" })
+  get("/users/:username/feed", { :controller => "users", :action => "feed" })
+  get("/users/:username/popular_picks", { :controller => "users", :action => "popular_picks" })
+  
   # CREATE
   post("/insert_user", { :controller => "users", :action => "create" })
           
@@ -154,10 +156,6 @@ Rails.application.routes.draw do
   # DELETE
   get("/delete_user/:path_id", { :controller => "users", :action => "destroy" })
 
-  #------------------------------
 
-  # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
-
-  # get "/your_first_screen" => "pages#first"
   
 end

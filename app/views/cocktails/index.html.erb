@@ -83,9 +83,6 @@
   <div>
     <table border="1">
       <tr>
-        <th>
-          ID
-        </th>
 
         <th>
           Cocktail name
@@ -119,6 +116,10 @@
           Created at
         </th>
 
+        <th>
+          Likes
+        </th>
+
 
         <th>
         </th>
@@ -126,9 +127,6 @@
 
       <% @list_of_cocktails.each do |a_cocktail| %>
       <tr>
-        <td>
-          <%= a_cocktail.id %>
-        </td>
 
         <td>
           <%= a_cocktail.cocktail_name %>
@@ -161,6 +159,10 @@
 
         <td>
           <%= time_ago_in_words(a_cocktail.created_at) %> ago
+        </td>
+
+        <td>
+          <%= a_cocktail.likes.count %>
         </td>
 
         <td>
