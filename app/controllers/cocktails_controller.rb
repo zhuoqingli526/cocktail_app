@@ -112,4 +112,10 @@ class CocktailsController < ApplicationController
 
     redirect_to("/cocktails", { :notice => "Cocktail deleted successfully." })
   end
+
+  def random
+    @the_cocktail = Cocktail.all.sample
+    render({ :template => "cocktails/random" })
+  end
+
 end

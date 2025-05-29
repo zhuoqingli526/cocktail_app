@@ -86,7 +86,6 @@ Rails.application.routes.draw do
   get("/cocktail_likes/:path_id", { :controller => "cocktail_likes", :action => "show" })
   
   # UPDATE
-  
   post("/modify_cocktail_like/:path_id", { :controller => "cocktail_likes", :action => "update" })
   
   # DELETE
@@ -101,15 +100,7 @@ Rails.application.routes.draw do
           
   # READ
   get("/cocktail_comments", { :controller => "cocktail_comments", :action => "index" })
-  
-  get("/cocktail_comments/:path_id", { :controller => "cocktail_comments", :action => "show" })
-  
-  # UPDATE
-  
-  post("/modify_cocktail_comment/:path_id", { :controller => "cocktail_comments", :action => "update" })
-  
-  # DELETE
-  get("/delete_cocktail_comment/:path_id", { :controller => "cocktail_comments", :action => "destroy" })
+
 
   #------------------------------
 
@@ -130,6 +121,9 @@ Rails.application.routes.draw do
   
   # DELETE
   get("/delete_cocktail/:path_id", { :controller => "cocktails", :action => "destroy" })
+
+  # RANDOM
+  get("/random_cocktail", { :controller => "cocktails", :action => "random" })
 
   #------------------------------
 

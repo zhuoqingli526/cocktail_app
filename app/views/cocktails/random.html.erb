@@ -1,0 +1,27 @@
+<style>
+ .cocktail-card {
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: #fafafa;
+  }
+</style>
+
+<h1>Shake It Up!</h1>
+
+<div class="cocktail-card">
+  <h2><%= @the_cocktail.cocktail_name %></h2>
+
+  <img src="<%= @the_cocktail.image_url.url %>" width="240" height="300">
+
+  <p><%= @the_cocktail.description %></p>
+
+  <p>
+    <a href="/cocktails/<%= @the_cocktail.id %>">Show details</a>
+  </p>
+
+  <form action="/random_cocktail" method="get">
+    <button>Shake Again</button>
+  </form>
+</div>
