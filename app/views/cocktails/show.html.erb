@@ -89,8 +89,8 @@
         Creator
       </dt>
       <dd>
-        <% the_user = @the_cocktail.user %>
-        <%= the_user.username %>
+        <% @the_user = @the_cocktail.user %>
+        <%= @the_user.username %>
       </dd>
 
       <dt>
@@ -118,8 +118,12 @@
         <% end %>
       </dd>
 
-      
-
+       <% if current_user = @the_user %>
+        <dt>Delete cocktail</dt>
+        <dd>
+          <a href="/delete_cocktail/<%= @the_cocktail.id %>">Delete this cocktail</a>
+        </dd>
+      <% end %>
 
     </dl>
   </div>

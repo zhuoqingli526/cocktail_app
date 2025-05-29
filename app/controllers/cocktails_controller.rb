@@ -27,48 +27,53 @@ class CocktailsController < ApplicationController
   def create
     the_cocktail = Cocktail.new
     the_cocktail.cocktail_name = params.fetch("the_cocktail_name")
-    the_cocktail.description = params.fetch("the_description")
-    the_cocktail.instructions = params.fetch("the_instructions")
+    the_cocktail.description   = params.fetch("the_description")
+    the_cocktail.instructions  = params.fetch("the_instructions")
     the_cocktail.abv = params.fetch("the_abv")
-    the_cocktail.taste = params.fetch("the_taste")
-    the_cocktail.user_id = current_user.id
+    the_cocktail.taste  = params.fetch("the_taste")
     the_cocktail.image_url = params.fetch("the_image_url")
+    the_cocktail.user_id = current_user.id
+
+    names = params.fetch("ingredient_names", [])
+    mls = params.fetch("ingredient_unit_mls", [])
+    cat_ids = params.fetch("ingredient_category_ids", [])
+    abvs = params.fetch("ingredient_abvs", [])
+    descs = params.fetch("ingredient_description", [])
+
+    valid_ingredient_rows = names.each_index.select do |i|
+      names[i].present? && cat_ids[i].present? && mls[i].present?
+    end
+
+    if valid_ingredient_rows.empty?
+      redirect_to("/cocktails/new", alert: "Please provide at least one complete ingredient.") and return
+    end
+
 
     ActiveRecord::Base.transaction do
       the_cocktail.save!
 
-      names = params.fetch("ingredient_names",[])
-      mls = params.fetch("ingredient_unit_mls", [])
-      cat_ids = params.fetch("ingredient_category_ids",[])
-      ingredient_abvs = params.fetch("ingredient_abvs", [])
-
-      names.each_index do |idx|
-        next if names[idx].blank?  # 跳过空行
-
-        # 2.1) Ingredient：有就复用，没有就建
+      valid_ingredient_rows.each do |idx|
         ingredient = Ingredient.where({ :name => names[idx].strip }).first
         unless ingredient
           ingredient = Ingredient.create!(
-            :name                   => names[idx].strip,
-            :abv                    => ingredient_abvs[idx],
-            :ingredient_category_id => cat_ids[idx],
-            :description            => "" # 用户此步不填描述
+            name: names[idx].strip,
+            description: descs[idx],
+            abv: abvs[idx],
+            ingredient_category_id: cat_ids[idx]
           )
         end
 
-        # 2.2) 桥接表
         CocktailIngredient.create!(
-          :cocktail_id   => the_cocktail.id,
-          :ingredient_id => ingredient.id,
-          :unit_ml       => mls[idx]
+          cocktail_id: the_cocktail.id,
+          ingredient_id: ingredient.id,
+          unit_ml: mls[idx]
         )
       end
     end
 
-    # 3) 成功跳到 show；失败回 new
-    redirect_to("/cocktails/#{the_cocktail.id}", { :notice => "Cocktail created!" })
+    redirect_to("/cocktails/#{the_cocktail.id}", notice: "Cocktail created successfully!")
   rescue => e
-    redirect_to("/cocktails/new", { :alert => "Save failed: #{e.message}" })
+    redirect_to("/cocktails/new", alert: "All cocktail fields are required.")
   end
 
   def update
@@ -95,8 +100,16 @@ class CocktailsController < ApplicationController
     the_id = params.fetch("path_id")
     the_cocktail = Cocktail.where({ :id => the_id }).at(0)
 
+    ingredient_ids = the_cocktail.ingredients.pluck(:id)
+
     the_cocktail.destroy
 
-    redirect_to("/cocktails", { :notice => "Cocktail deleted successfully."} )
+    ingredient_ids.each do |ing_id|
+      if CocktailIngredient.where(:ingredient_id => ing_id).empty?
+        Ingredient.find(ing_id).destroy
+      end
+    end
+
+    redirect_to("/cocktails", { :notice => "Cocktail deleted successfully." })
   end
 end

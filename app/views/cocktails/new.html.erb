@@ -1,39 +1,47 @@
 <h1>Add a new cocktail</h1>
 
+
+<style>
+  .required-label::after {
+    content: " *";
+    color: red;
+  }
+</style>
+
 <form action="/insert_cocktail" method="post" enctype="multipart/form-data">
   <div>
-    <label for="cocktail_name_box">Cocktail name</label>
-    <input id="cocktail_name_box" type="text" name="the_cocktail_name">
+    <label for="cocktail_name_box" class="required-label">Cocktail name</label>
+    <input id="cocktail_name_box" type="text" name="the_cocktail_name" required>
   </div>
 
   <div>
-    <label for="description_box">Description</label>
-    <textarea id="description_box" type="text" name="the_description" cols="20" rows="5"></textarea>
+    <label for="description_box" class="required-label">Description</label>
+    <textarea id="description_box" type="text" name="the_description" cols="20" rows="5" required></textarea>
   </div>
 
   <div>
-    <label for="instructions_box">Instructions</label>
-    <textarea id="instructions_box" type="text" name="the_instructions" cols="20" rows="5"></textarea>
+    <label for="instructions_box" class="required-label">Instructions</label>
+    <textarea id="instructions_box" type="text" name="the_instructions" cols="20" rows="5" required></textarea>
   </div>
 
   <div>
-    <label for="abv_box">Abv</label>
-    <input id="abv_box" type="text" name="the_abv">
+    <label for="abv_box" class="required-label">Abv</label>
+    <input id="abv_box" type="text" name="the_abv" required>
   </div>
 
   <div>
-    <label for="taste_box">Taste</label>
-    <textarea id="taste_box" type="text" name="the_taste" cols="20" rows="5"></textarea>
+    <label for="taste_box" class="required-label">Taste</label>
+    <textarea id="taste_box" type="text" name="the_taste" cols="20" rows="5" required></textarea>
   </div>
 
   <div>
-    <label for="image_url_box">Image</label>
-    <input id="image_url_box" type="file" name="the_image_url">
+    <label for="image_url_box" class="required-label">Image</label>
+    <input id="image_url_box" type="file" name="the_image_url" required>
   </div>
 
 
   <hr>
-  <h3>Ingredients (Add as many as you like — empty rows will be skipped automatically)</h3>
+  <h3>Ingredients (At least 1 ingredient. Add as many as you like.)</h3>
 
   <% 8.times do |i| %>
     <fieldset style="margin-bottom: 0.8rem; border: 1px dashed #aaa;">
