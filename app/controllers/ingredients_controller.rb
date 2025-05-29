@@ -1,4 +1,5 @@
 class IngredientsController < ApplicationController
+
   def index
     matching_ingredients = Ingredient.all
 

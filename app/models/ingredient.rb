@@ -14,4 +14,8 @@ class Ingredient < ApplicationRecord
   has_many  :cocktail_ingredients, class_name: "CocktailIngredient", foreign_key: "ingredient_id", dependent: :destroy
   belongs_to :ingredient_category, required: true, class_name: "IngredientCategory", foreign_key: "ingredient_category_id"
   has_many :cocktails, through: :cocktail_ingredients, source: :cocktail
+
+  validates(:description , presence: true)
+  validates(:abv, presence: true)
+  validates(:name, presence: true)
 end

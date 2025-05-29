@@ -17,8 +17,7 @@
         <label for="description_box">
           Description
         </label>
-
-        <input type="text" id="description_box" name="query_description">
+        <textarea id="description_box" type="text" name="query_description" cols="20" rows="3"></textarea>
       </div>
 
       <div>
@@ -30,11 +29,12 @@
       </div>
 
       <div>
-        <label for="ingredient_category_id_box">
-          Ingredient category
-        </label>
-
-        <input type="text" id="ingredient_category_id_box" name="query_ingredient_category_id">
+        <label for="ingredient_cat">Category</label>
+        <select id="ingredient_cat" name="query_ingredient_category_id">
+          <% IngredientCategory.all.each do |category| %>
+            <option value="<%= category.id %>"><%= category.name %></option>
+          <% end %>
+        </select>
       </div>
 
       <button>

@@ -118,7 +118,7 @@
         <% end %>
       </dd>
 
-       <% if current_user = @the_user %>
+       <% if current_user == @the_user %>
         <dt>Delete cocktail</dt>
         <dd>
           <a href="/delete_cocktail/<%= @the_cocktail.id %>">Delete this cocktail</a>

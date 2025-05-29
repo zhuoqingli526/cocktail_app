@@ -11,32 +11,32 @@
 <form action="/insert_cocktail" method="post" enctype="multipart/form-data">
   <div>
     <label for="cocktail_name_box" class="required-label">Cocktail name</label>
-    <input id="cocktail_name_box" type="text" name="the_cocktail_name" required>
+    <input id="cocktail_name_box" type="text" name="the_cocktail_name">
   </div>
 
   <div>
     <label for="description_box" class="required-label">Description</label>
-    <textarea id="description_box" type="text" name="the_description" cols="20" rows="5" required></textarea>
+    <textarea id="description_box" type="text" name="the_description" cols="20" rows="5"></textarea>
   </div>
 
   <div>
     <label for="instructions_box" class="required-label">Instructions</label>
-    <textarea id="instructions_box" type="text" name="the_instructions" cols="20" rows="5" required></textarea>
+    <textarea id="instructions_box" type="text" name="the_instructions" cols="20" rows="5"></textarea>
   </div>
 
   <div>
     <label for="abv_box" class="required-label">Abv</label>
-    <input id="abv_box" type="text" name="the_abv" required>
+    <input id="abv_box" type="text" name="the_abv">
   </div>
 
   <div>
     <label for="taste_box" class="required-label">Taste</label>
-    <textarea id="taste_box" type="text" name="the_taste" cols="20" rows="5" required></textarea>
+    <textarea id="taste_box" type="text" name="the_taste" cols="20" rows="5"></textarea>
   </div>
 
   <div>
     <label for="image_url_box" class="required-label">Image</label>
-    <input id="image_url_box" type="file" name="the_image_url" required>
+    <input id="image_url_box" type="file" name="the_image_url">
   </div>
 
 
@@ -47,24 +47,24 @@
     <fieldset style="margin-bottom: 0.8rem; border: 1px dashed #aaa;">
       <legend>Ingredient <%= i + 1 %></legend>
 
-      <label>Ingredient name</label>
-      <input type="text" name="ingredient_names[]">
+      <label for="ingredient_name" >Ingredient name</label>
+      <input id = "ingredient_name" type="text" name="ingredient_names[]">
 
-      <label>Category</label>
-      <select name="ingredient_category_ids[]">
+      <label for="ingredient_cat">Category</label>
+      <select id="ingredient_cat" name="ingredient_category_ids[]">
         <% IngredientCategory.all.each do |category| %>
           <option value="<%= category.id %>"><%= category.name %></option>
         <% end %>
       </select>
 
-      <label>Description</label>
-      <textarea type="text" name="ingredient_description[]" cols="30" rows="0.5"></textarea>
+      <label for ="ingredient_des">Description</label>
+      <textarea id ="ingredient_des" type="text" name="ingredient_description[]" cols="30" rows="0.5"></textarea>
 
-      <label>ABV</label>
-      <input type="text" name="ingredient_abvs[]">
+      <label for="abv" >ABV</label>
+      <input id ="abv" type="text" name="ingredient_abvs[]">
 
-      <label>ml</label>
-      <input type="text" name="ingredient_unit_mls[]">
+      <label for="ml">ml</label>
+      <input id="ml" type="text" name="ingredient_unit_mls[]">
     </fieldset>
   <% end %>
 

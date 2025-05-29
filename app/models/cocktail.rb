@@ -23,4 +23,11 @@ class Cocktail < ApplicationRecord
   has_many :votes, through: :likes, source: :user
   has_many :commenters, through: :comments, source: :user
   has_many :ingredients, through: :cocktail_ingredients, source: :ingredient
+
+  validates(:cocktail_name, presence: true)
+  validates(:description, presence: true)
+  validates(:instructions, presence: true)
+  validates(:abv, presence: true)
+  validates(:taste, presence: true)
+  validates(:image_url, presence: true)
 end
