@@ -1,12 +1,5 @@
-<div>
-  <div>
-    <h1>
-      List of all ingredients
-    </h1>
-  </div>
-</div>
 
-<hr>
+
 
 <div>
   <div>
@@ -55,80 +48,41 @@
 </div>
 
 <hr>
+
+
 <div>
   <div>
-    <table border="1">
-      <tr>
-        <th>
-          ID
-        </th>
-
-        <th>
-          Name
-        </th>
-
-        <th>
-          Description
-        </th>
-
-        <th>
-          Abv
-        </th>
-
-        <th>
-          Ingredient category
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_ingredients.each do |an_ingredient| %>
-      <tr>
-        <td>
-          <%= an_ingredient.id %>
-        </td>
-
-        <td>
-          <%= an_ingredient.name %>
-        </td>
-
-        <td>
-          <%= an_ingredient.description %>
-        </td>
-
-        <td>
-          <%= an_ingredient.abv %>
-        </td>
-
-        <td>
-          <%= an_ingredient.ingredient_category_id %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(an_ingredient.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(an_ingredient.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/ingredients/<%= an_ingredient.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
+    <h1>
+      List of all ingredients
+    </h1>
   </div>
 </div>
 
-<hr>
+
+<% IngredientCategory.order(:name).each do |category| %>
+  <h2><%= category.name %></h2>
+
+  <% ingredients = @list_of_ingredients.select { |i| i.ingredient_category_id == category.id } %>
+
+  <% if ingredients.any? %>
+    <table border="1">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Abv</th>
+      </tr>
+
+      <% ingredients.each do |an_ingredient| %>
+        <tr>
+          <td><%= an_ingredient.name %></td>
+          <td><%= an_ingredient.description %></td>
+          <td><%= an_ingredient.abv %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p>No ingredients in this category.</p>
+  <% end %>
+
+  <hr>
+<% end %>
