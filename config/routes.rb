@@ -117,6 +117,7 @@ Rails.application.routes.draw do
 
   # CREATE
   post("/insert_cocktail", { :controller => "cocktails", :action => "create" })
+  get("/cocktails/new", { :controller => "cocktails", :action => "new" })
           
   # READ
   get("/cocktails", { :controller => "cocktails", :action => "index" })
