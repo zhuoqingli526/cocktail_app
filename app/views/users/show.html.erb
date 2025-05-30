@@ -17,6 +17,7 @@
               <% if follow.present? %>
                 <form action="/follow_requests/<%= follow.id %>" method="post">
                   <input type="hidden" name="_method" value="delete">
+                  <input type="hidden" name="redirect_to" value="/users/<%= @the_user.id %>">
                   <button>Unfollow</button>
                 </form>
               <% else %>
