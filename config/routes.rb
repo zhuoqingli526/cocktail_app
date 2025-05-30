@@ -149,6 +149,9 @@ Rails.application.routes.draw do
   # DELETE
   get("/delete_user/:path_id", { :controller => "users", :action => "destroy" })
 
+  # Routes for the Cockgpt:
+  get("/cocktail_chat", { :controller => "cocktail_chat", :action => "show" })
+  post("/cocktail_chat/send", { :controller => "cocktail_chat", :action => "send_message" })
 
   
 end

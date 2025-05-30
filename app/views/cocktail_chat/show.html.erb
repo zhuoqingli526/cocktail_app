@@ -1,0 +1,16 @@
+<h1>Ask Your AI Bartender!</h1>
+
+<div style="max-width: 600px; padding: 20px; border: 1px solid #ccc; border-radius: 12px;">
+  <% @messages.each do |msg| %>
+    <p><strong><%= msg.role.capitalize %>:</strong> <%= msg.body %></p>
+  <% end %>
+
+  <form action="/cocktail_chat/send" method="post">
+    <input type="hidden" name="query_session_id" value="<%= @session_id %>">
+    
+    <label for="body">Your question:</label><br>
+    <textarea name="query_body" rows="3" cols="60" placeholder="e.g., What's in a Negroni?" required></textarea><br>
+
+    <button>Send</button>
+  </form>
+</div>
