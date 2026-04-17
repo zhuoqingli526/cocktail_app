@@ -38,7 +38,7 @@ namespace :slurp do
         username: row["username"],
         email: row["email"],
         bio: row["bio"],
-        avatar_image: row["avatar_image"],
+        # avatar_image: row["avatar_image"],
         password: row["password"],
         created_at: row["created_at"],
         updated_at: row["updated_at"]
@@ -71,17 +71,27 @@ namespace :slurp do
 
     puts "Importing cocktails..."
     CSV.foreach(Rails.root.join("lib", "csvs", "cocktails.csv"), headers: true) do |row|
-      Cocktail.create!(
+      c = Cocktail.new(
         cocktail_name: row["cocktail_name"],
         description: row["description"],
         instructions: row["instructions"],
         abv: row["abv"],
         taste: row["taste"],
-        image_url: row["image_url"],
         user_id: row["user_id"],
         created_at: row["created_at"],
         updated_at: row["updated_at"]
       )
+
+      # 如果 CSV 里有图片链接就赋值，没有就跳过（后面靠另一个 rake 任务补图片）
+      c.image_url = row["image_url"] if row["image_url"].present?
+
+      # 这里的 c 现在被定义过了，不会再报错
+      if c.save
+        # 成功导入一条
+      else
+        # 如果验证失败，打印出具体的错误原因，方便你排查 CSV 数据问题
+        puts "❌ 无法导入 #{row['cocktail_name']}: #{c.errors.full_messages.join(', ')}"
+      end
     end
     puts "Imported #{Cocktail.count} cocktails."
 

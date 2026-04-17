@@ -29,5 +29,5 @@ class Cocktail < ApplicationRecord
   validates(:instructions, presence: true)
   validates(:abv, presence: true)
   validates(:taste, presence: true)
-  validates(:image_url, presence: true)
+  # validates(:image_url, presence: true)
 end
