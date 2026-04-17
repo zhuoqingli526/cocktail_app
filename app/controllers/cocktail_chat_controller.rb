@@ -20,7 +20,7 @@ class CocktailChatController < ApplicationController
     existing_messages = Message.where(session_id: session_id).order(:created_at)
 
     chat = OpenAI::Chat.new
-    chat.model = "gpt-4.1-nano" 
+    chat.model = "gpt-4o-mini" 
 
     # Set system prompt 
     chat.system("You are a friendly bartender assistant who knows a lot about cocktails, recipes, and drink history.")
