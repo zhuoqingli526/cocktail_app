@@ -87,6 +87,7 @@ gem "simple_form"
 gem "carrierwave"
 gem "cloudinary"
 gem "openai-chat"
+gem "web_rake"
 
 group :development do
   gem "annotate"
