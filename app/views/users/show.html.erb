@@ -1,147 +1,81 @@
-<div>
-  <div>
-    <h1>
-      <%= @the_user.username %> 
-    </h1>
+<div class="profile-header-card">
+  <div class="profile-avatar-big">
+    <%= @the_user.username[0].upcase %>
+  </div>
+  <h1 class="brand-title" style="font-size: 2rem; margin-bottom: 10px;"><%= @the_user.username %></h1>
+  <p style="color: #9e958a; max-width: 500px; margin: 0 auto;"><%= @the_user.bio %></p>
 
-    <dl>  
-      <dt>Bio</dt>
-      <dd><%= @the_user.bio %></dd>
+  <div class="profile-stats">
+    <div class="stat-item">
+      <span class="stat-value"><%= @the_user.cocktails.count %></span>
+      <span class="stat-label">Cocktails</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value"><%= @the_user.followers.count %></span>
+      <span class="stat-label">Followers</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value"><%= @the_user.leaders.count %></span>
+      <span class="stat-label">Following</span>
+    </div>
+  </div>
 
-      <dt>Followers</dt>
-      <dd><%= @the_user.followers.count %>
-        <div>
-          <% if current_user != @the_user %>
-            <% follow = FollowRequest.find_by(sender_id: current_user.id, recipient_id: @the_user.id) %>
-
-              <% if follow.present? %>
-                <form action="/follow_requests/<%= follow.id %>" method="post">
-                  <input type="hidden" name="_method" value="delete">
-                  <input type="hidden" name="redirect_to" value="/users/<%= @the_user.id %>">
-                  <button>Unfollow</button>
-                </form>
-              <% else %>
-                <form action="/insert_follow_request" method="post">
-                  <input type="hidden" name="query_sender_id" value="<%= current_user.id %>">
-                  <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
-                  <input type="hidden" name="redirect_to" value="/users/<%= @the_user.id %>">
-                  <button>Follow</button>
-                </form>
-              <% end %>
-            <% end %>
-        </div>
-      </dd>
-
-      <dt>Following</dt>
-      <dd><%= @the_user.leaders.count %></dd>
-    </dl>
+  <div class="follow-action-area">
+    <% if current_user != @the_user %>
+      <% follow = FollowRequest.find_by(sender_id: current_user.id, recipient_id: @the_user.id) %>
+      <% if follow.present? %>
+        <form action="/follow_requests/<%= follow.id %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <button class="btn-unfollow-outline">Unfollow</button>
+        </form>
+      <% else %>
+        <form action="/insert_follow_request" method="post">
+          <input type="hidden" name="query_sender_id" value="<%= current_user.id %>">
+          <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
+          <input type="hidden" name="redirect_to" value="/users/<%= @the_user.id %>">
+          <button class="btn-follow-gold">Follow</button>
+        </form>
+      <% end %>
+    <% end %>
   </div>
 </div>
 
+<nav class="user-tabs-nav">
+  <a href="/users/<%= @the_user.id %>" class="tab-link <%= "active" if current_page?("/users/#{@the_user.id}") %>">Created</a>
+  <a href="/users/<%= @the_user.username %>/liked_cocktails" class="tab-link <%= "active" if request.path.include?('liked') %>">Liked</a>
+  
+  <% if current_user == @the_user %>
+    <a href="/users/<%= current_user.username %>/feed" class="tab-link <%= "active" if request.path.include?('feed') %>">Feed</a>
+    <a href="/users/<%= current_user.username %>/popular_picks" class="tab-link <%= "active" if request.path.include?('popular') %>">Popular</a>
+  <% end %>
+</nav>
 
-
-  <nav>
-    <ul>
-      <li>
-        <a href="/users/<%= @the_user.username %>/liked_cocktails">Liked coctails</a>
-      </li>
-      <% if current_user == @the_user%>
-        <li>
-          <a href="/users/<%= current_user.username %>/feed">Feed</a>
-        </li>
-        <li>
-          <a href="/users/<%= current_user.username %>/popular_picks">Popular Picks</a>
-        </li>
-      <% end %>
-    </ul>
-  </nav>
-
-
-
-<h2>Created cocktails</h2>
-
-<div>
-  <div>
-    <table border="1">
-      <tr>
-        <th>
-          Cocktail name
-        </th>
-
-        <th>
-          Image
-        </th>
-
-        <th>
-          Description
-        </th>
-
-        <th>
-          Instructions
-        </th>
-
-        <th>
-          Abv
-        </th>
-
-        <th>
-          Taste
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Likes
-        </th>
-
-        <th>
-        </th>
-      </tr>
-
-      <% @the_user.cocktails.each do |a_cocktail| %>
-      <tr>
-        <td>
-          <%= a_cocktail.cocktail_name %>
-        </td>
+<div class="cocktail-grid">
+  <% # 这里根据页面不同，循环的对象分别是 @the_user.cocktails, @the_leader_cocktails 等 %>
+  <% collection = @the_user.cocktails # 以 Show 页为例 %>
+  
+  <% collection.each do |a_cocktail| %>
+    <div class="cocktail-card-elegant">
+      <a href="/cocktails/<%= a_cocktail.id %>" style="text-decoration: none; color: inherit;">
+        <div class="card-image-wrapper">
+          <img src="<%= a_cocktail.image_url.url %>" alt="<%= a_cocktail.cocktail_name %>">
+          <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem;">
+            ❤️ <%= a_cocktail.likes.count %>
+          </div>
+        </div>
         
-        <td>
-          <img src="<%= a_cocktail.image_url.url %>" width="200" height="300">
-        </td>
-
-        <td>
-          <%= a_cocktail.description %>
-        </td>
-
-        <td>
-          <%= a_cocktail.instructions %>
-        </td>
-
-        <td>
-          <%= a_cocktail.abv %>
-        </td>
-
-        <td>
-          <%= a_cocktail.taste %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_cocktail.created_at) %> ago
-        </td>
-
-
-        <td>
-          <%= a_cocktail.likes.count %>
-        </td>
-
-        <td>
-          <a href="/cocktails/<%= a_cocktail.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
+        <div class="card-info">
+          <span class="card-category"><%= a_cocktail.taste %> • <%= a_cocktail.abv %>% ABV</span>
+          <h3 class="card-title"><%= a_cocktail.cocktail_name %></h3>
+          <p style="font-size: 0.85rem; color: #666; line-height: 1.4; height: 3em; overflow: hidden;">
+            <%= a_cocktail.description %>
+          </p>
+          <div style="margin-top: 15px; font-size: 0.75rem; color: #999; display: flex; justify-content: space-between;">
+            <span>by <%= a_cocktail.user.username %></span>
+            <span><%= time_ago_in_words(a_cocktail.created_at) %> ago</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% end %>
 </div>

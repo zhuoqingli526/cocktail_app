@@ -1,4 +1,5 @@
 class CocktailChatController < ApplicationController
+  
   def show
     @session_id = SecureRandom.uuid
     @messages = []
