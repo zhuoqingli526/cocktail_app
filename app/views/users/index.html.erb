@@ -22,11 +22,13 @@
                  <button style="border: none; background: none; color: #999; font-size: 0.8rem; cursor: pointer;">Unfollow</button>
                </form>
             <% else %>
-               <form action="/insert_follow_request" method="post">
-                 <input type="hidden" name="query_sender_id" value="<%= current_user.id %>">
-                 <input type="hidden" name="query_recipient_id" value="<%= a_user.id %>">
-                 <button style="background: #D4AF37; color: white; border: none; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Follow</button>
-               </form>
+              <form action="/insert_follow_request" method="post">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <input type="hidden" name="query_sender_id" value="<%= current_user.id %>">
+                <input type="hidden" name="query_recipient_id" value="<%= a_user.id %>">
+                <input type="hidden" name="redirect_to" value="/users">
+                <button style="background: #D4AF37; color: white; border: none; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Follow</button>
+              </form>
             <% end %>
           <% end %>
           <a href="/users/<%= a_user.id %>" class="btn-text" style="color: #D4AF37; font-weight: bold; text-decoration: none; font-size: 0.85rem; margin-left: 10px;">View Profile</a>

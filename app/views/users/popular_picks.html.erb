@@ -1,153 +1,51 @@
-<div>
-  <div>
-    <h1>
-      <%= @the_user.username %> 
-    </h1>
-
-    <dl>  
-      <dt>Bio</dt>
-      <dd><%= @the_user.bio %></dd>
-
-      <dt>Followers</dt>
-      <dd><%= @the_user.followers.count %>
-        <div>
-          <% if current_user != @the_user %>
-            <% follow = FollowRequest.find_by(sender_id: current_user.id, recipient_id: @the_user.id) %>
-
-              <% if follow.present? %>
-                <form action="/follow_requests/<%= follow.id %>" method="post">
-                  <input type="hidden" name="_method" value="delete">
-                  <button>Unfollow</button>
-                </form>
-              <% else %>
-                <form action="/insert_follow_request" method="post">
-                  <input type="hidden" name="query_sender_id" value="<%= current_user.id %>">
-                  <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
-                  <input type="hidden" name="redirect_to" value="/users/<%= @the_user.id %>">
-                  <button>Follow</button>
-                </form>
-              <% end %>
-            <% end %>
-        </div>
-      </dd>
-
-      <dt>Following</dt>
-      <dd><%= @the_user.leaders.count %></dd>
-    </dl>
+<div class="profile-header-card">
   </div>
+
+<nav class="user-tabs-nav">
+  <a href="/users/<%= @the_user.id %>" class="tab-link">Created</a>
+  <a href="/users/<%= @the_user.username %>/liked_cocktails" class="tab-link">Liked</a>
+  <a href="/users/<%= @the_user.username %>/feed" class="tab-link">Feed</a>
+  <a href="/users/<%= @the_user.username %>/popular_picks" class="tab-link active">Popular</a>
+</nav>
+
+<div class="section-header" style="margin-bottom: 20px; text-align: center;">
+  <h2 style="font-family: 'Playfair Display', serif; color: var(--warm-charcoal); font-size: 2rem;">Trending Now</h2>
+  <p style="color: #C5A028; font-weight: bold; letter-spacing: 2px;">COMMUNITY FAVORITES</p>
 </div>
 
-
-  <nav>
-    <ul>
-      <li>
-        <a href="/users/<%= @the_user.username %>/liked_cocktails">Liked coctails</a>
-      </li>
-      <% if current_user == @the_user%>
-        <li>
-          <a href="/users/<%= current_user.username %>/feed">Feed</a>
-        </li>
-        <li>
-          <a href="/users/<%= current_user.username %>/popular_picks">Popular Picks</a>
-        </li>
-      <% end %>
-    </ul>
-  </nav>
-
-
-
-<h2>Popular Picks (<%= @popular_cocktails.count %>)</h2>
-
-<div>
-  <div>
-    <table border="1">
-      <tr>
-        <th>
-          Cocktail name
-        </th>
-
-        <th>
-          Image
-        </th>
-
-        <th>
-          Description
-        </th>
-
-        <th>
-          Instructions
-        </th>
-
-        <th>
-          Abv
-        </th>
-
-        <th>
-          Taste
-        </th>
-
-        <th>
-          Creator
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Likes
-        </th>
-
-        <th>
-        </th>
-      </tr>
-
-      <% @popular_cocktails.each do |a_cocktail| %>
-      <tr>
-        <td>
-          <%= a_cocktail.cocktail_name %>
-        </td>
+<div class="cocktail-grid">
+  <% @popular_cocktails.each_with_index do |a_cocktail, index| %>
+    <div class="cocktail-card-elegant">
+      <a href="/cocktails/<%= a_cocktail.id %>" style="text-decoration: none; color: inherit;">
+        <div class="card-image-wrapper">
+          <div class="rank-badge" style="position: absolute; top: 15px; left: 15px; background: <%= index < 3 ? '#D4AF37' : '#3E3A35' %>; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; z-index: 10; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+            <%= index + 1 %>
+          </div>
+          
+          <img src="<%= a_cocktail.image_url.url %>" alt="<%= a_cocktail.cocktail_name %>">
+          
+          <div class="like-badge" style="position: absolute; bottom: 12px; right: 12px; background: rgba(197, 160, 40, 0.9); backdrop-filter: blur(4px); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold;">
+            🔥 <%= a_cocktail.likes.count %>
+          </div>
+        </div>
         
-        <td>
-          <img src="<%= a_cocktail.image_url.url %>" width="200" height="300">
-        </td>
-
-        <td>
-          <%= a_cocktail.description %>
-        </td>
-
-        <td>
-          <%= a_cocktail.instructions %>
-        </td>
-
-        <td>
-          <%= a_cocktail.abv %>
-        </td>
-
-        <td>
-          <%= a_cocktail.taste %>
-        </td>
-
-        <td>
-          <% the_user = a_cocktail.user %>
-          <%= the_user.username %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_cocktail.created_at) %> ago
-        </td>
-
-        <td>
-          <%= a_cocktail.likes.count %>
-        </td>
-
-        <td>
-          <a href="/cocktails/<%= a_cocktail.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
+        <div class="card-info" style="background: linear-gradient(to bottom, #ffffff, #fdfaf2);">
+          <span class="card-category" style="color: #C5A028; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">
+            <%= a_cocktail.taste %> • Top Choice
+          </span>
+          <h3 class="card-title" style="margin-top: 8px; font-weight: 700;"><%= a_cocktail.cocktail_name %></h3>
+          <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; height: 3em; overflow: hidden; margin-bottom: 15px;">
+            <%= a_cocktail.description %>
+          </p>
+          
+          <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(212, 175, 55, 0.1); padding-top: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Created by</span>
+              <span style="font-size: 0.75rem; color: #3E3A35; font-weight: 600;"><%= a_cocktail.user.username %></span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% end %>
 </div>
