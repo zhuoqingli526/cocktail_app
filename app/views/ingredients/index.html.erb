@@ -1,85 +1,60 @@
-<div>
-  <div>
-    <h2>
-      Add a new ingredient
-    </h2>
-
-    <form action="/insert_ingredient" method="post">
-      <div>
-        <label for="name_box">
-          Name
-        </label>
-
-        <input type="text" id="name_box" name="query_name">
+<div class="container" style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+  
+  <div class="glass-form-card">
+    <h2 class="brand-title" style="font-size: 1.5rem; margin-bottom: 20px;">✨ Add New Ingredient</h2>
+    <form action="/insert_ingredient" method="post" class="custom-form">
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="query_name" placeholder="e.g. Campari" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>ABV (%)</label>
+          <input type="text" name="query_abv" placeholder="25" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select name="query_ingredient_category_id" class="form-control">
+            <% IngredientCategory.all.each do |category| %>
+              <option value="<%= category.id %>"><%= category.name %></option>
+            <% end %>
+          </select>
+        </div>
       </div>
-
-      <div>
-        <label for="description_box">
-          Description
-        </label>
-        <textarea id="description_box" type="text" name="query_description" cols="20" rows="3"></textarea>
+      <div class="form-group" style="margin-top: 15px;">
+        <label>Description</label>
+        <textarea name="query_description" rows="2" class="form-control" placeholder="Brief notes on flavor profile..."></textarea>
       </div>
-
-      <div>
-        <label for="abv_box">
-          Abv
-        </label>
-
-        <input type="text" id="abv_box" name="query_abv">
-      </div>
-
-      <div>
-        <label for="ingredient_cat">Category</label>
-        <select id="ingredient_cat" name="query_ingredient_category_id">
-          <% IngredientCategory.all.each do |category| %>
-            <option value="<%= category.id %>"><%= category.name %></option>
-          <% end %>
-        </select>
-      </div>
-
-      <button>
-        Create ingredient
-      </button>
+      <button class="btn-follow-gold" style="width: 100%; margin-top: 20px; padding: 12px;">Create Ingredient</button>
     </form>
   </div>
-</div>
 
-<hr>
+  <h1 class="brand-title" style="text-align: center; font-size: 2.5rem; margin-bottom: 40px;">Ingredient Library</h1>
 
-
-<div>
-  <div>
-    <h1>
-      Ingredient Library
-    </h1>
-  </div>
-</div>
-
-
-<% IngredientCategory.order(:name).each do |category| %>
-  <h2><%= category.name %></h2>
-
-  <% ingredients = @list_of_ingredients.select { |i| i.ingredient_category_id == category.id } %>
-
-  <% if ingredients.any? %>
-    <table border="1">
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Abv</th>
-      </tr>
-
-      <% ingredients.each do |an_ingredient| %>
-        <tr>
-          <td><%= an_ingredient.name %></td>
-          <td><%= an_ingredient.description %></td>
-          <td><%= an_ingredient.abv %></td>
-        </tr>
+  <% IngredientCategory.order(:name).each do |category| %>
+    <h2 class="category-divider"><%= category.name %></h2>
+    
+    <% ingredients = @list_of_ingredients.select { |i| i.ingredient_category_id == category.id } %>
+    
+    <div class="cocktail-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+      <% if ingredients.any? %>
+        <% ingredients.each do |an_ingredient| %>
+          <div class="ingredient-card">
+            <div>
+              <div class="ingredient-name"><%= an_ingredient.name %></div>
+              <div class="ingredient-abv-pill"><%= an_ingredient.abv %>% ABV</div>
+              <p style="font-size: 0.85rem; color: #64748b; line-height: 1.4;">
+                <%= truncate(an_ingredient.description, length: 80) %>
+              </p>
+            </div>
+            <div style="margin-top: 15px; border-top: 1px solid #f1f1f1; pt-10px; padding-top: 10px;">
+              <a href="/ingredients/<%= an_ingredient.id %>" style="color: #D4AF37; font-size: 0.8rem; font-weight: bold; text-decoration: none;">View Details →</a>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p style="color: #94a3b8; font-style: italic; font-size: 0.9rem;">Empty shelf...</p>
       <% end %>
-    </table>
-  <% else %>
-    <p>No ingredients in this category.</p>
+    </div>
   <% end %>
-
-  <hr>
-<% end %>
+</div>
