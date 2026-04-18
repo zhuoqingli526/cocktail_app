@@ -1,57 +1,57 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="container" style="max-width: 600px; margin: 40px auto;">
+  <div class="profile-header-card" style="text-align: left;">
+    <h2 class="brand-title" style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 15px;">个人资料设置</h2>
 
-<%= form_for(resource,
-              as: resource_name,
-              url: registration_path(resource_name),
-              html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <div class="auth-field">
+        <%= f.label :username, "用户名" %>
+        <%= f.text_field :username, autofocus: true, class: "auth-input" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true %>
-  </div>
+      <div class="auth-field">
+        <%= f.label :bio, "个人简介" %>
+        <%= f.text_area :bio, rows: 3, class: "auth-input", placeholder: "分享你的调酒哲学..." %>
+      </div>
 
-  <div class="field">
-    <%= f.label :bio %><br />
-    <%= f.text_area :bio, rows: 4, cols: 50 %>
-  </div>
+      <div class="auth-field">
+        <%= f.label :email, "电子邮箱" %>
+        <%= f.email_field :email, class: "auth-input" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :new_password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :new_password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <hr style="margin: 30px 0; border: none; border-top: 1px solid #f1f1f1;">
+
+      <div class="auth-field">
+        <%= f.label :password, "新密码" %>
+        <span class="auth-helper">(如果不打算修改，请留空)</span>
+        <%= f.password_field :password, autocomplete: "new-password", class: "auth-input" %>
+      </div>
+
+      <div class="auth-field">
+        <%= f.label :password_confirmation, "确认新密码" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "auth-input" %>
+      </div>
+
+      <div class="auth-field" style="background: #fdfaf2; padding: 15px; border-radius: 8px;">
+        <%= f.label :current_password, "当前密码" %>
+        <span class="auth-helper" style="color: #C5A028;">我们需要你输入当前密码来确认本次修改</span>
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "auth-input", style: "border-color: #D4AF37;" %>
+      </div>
+
+      <div style="display: flex; gap: 15px; align-items: center; margin-top: 30px;">
+        <%= f.submit "保存修改", class: "btn-follow-gold", style: "flex: 1; padding: 12px;" %>
+        <%= link_to "取消", :back, style: "color: #999; text-decoration: none; font-size: 0.9rem;" %>
+      </div>
     <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div style="margin-top: 30px; padding: 20px; border: 1px dashed #ffccd5; border-radius: 12px; text-align: center;">
+    <h4 style="color: #e53e3e; font-size: 0.9rem; margin-bottom: 10px;">危险区域</h4>
+    <p style="font-size: 0.8rem; color: #999; margin-bottom: 15px;">如果您想注销账户，所有配方和数据将永久删除。</p>
+    <%= button_to "注销我的账户", registration_path(resource_name), 
+        method: :delete, 
+        data: { confirm: "确定要离开我们吗？此操作无法撤销。" },
+        class: "btn-text", style: "color: #e53e3e; font-weight: bold; background: none; border: none; cursor: pointer;" %>
   </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(required only if changing password)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-<div>
-  Unhappy? 
-  <%= button_to "Cancel my account",
-                registration_path(resource_name),
-                method: :delete,
-                data: { confirm: "Are you sure?" } %>
 </div>
-
-<%= link_to "Back", :back %>
