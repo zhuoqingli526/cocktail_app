@@ -1,43 +1,57 @@
-<h1>Homepage</h1>
+<div class="home-hero">
+  <div class="hero-content">
+    <h1 class="brand-title">The Mixology Club</h1>
+    <p class="brand-tagline">探索、调制、品味。开启你的微醺之旅。</p>
+  </div>
+</div>
 
-  <ul>
-    <li>
-      <a href="/cocktails">
-        Cocktail Library
-      </a>
-
-    </li>
-    <li>
-      <a href="/ingredients">
-        Ingredient Library
-      </a>
-    </li>
-
-    <li>
-      <a href="/users">
-        All Users
-      </a>
-    </li>
-  
-    <li>
-      <a href="/cocktails/new">
-        Create Cocktails
-      </a>
-    </li>
-
-    <li>
-      <a href="/random_cocktail">
-        Random Cocktail. Surprise Me!
-      </a>
-    </li>
-
-    <li>
-      <a href="/cocktail_chat">
-        Chat with Your AI Bartender
-      </a>
-    </li>
-
-
+<div class="home-container">
+  <div class="main-features-grid">
     
+    <a href="/cocktail_chat" class="feature-card ai-card">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <span class="card-label">Powered by AI</span>
+        <h2>AI Bartender</h2>
+        <p>你的私人调酒顾问，随时解答任何配方疑问。</p>
+        <span class="card-link">Start Chatting →</span>
+      </div>
+    </a>
 
-  </ul>
+    <a href="/random_cocktail" class="feature-card random-card">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <span class="card-label">Surprise Me</span>
+        <h2>Shake It Up!</h2>
+        <p>不知道喝什么？让命运为你摇出一杯惊喜。</p>
+        <span class="card-link">I'm Feeling Lucky →</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="secondary-features-grid">
+    <a href="/cocktails" class="sub-card">
+      <div class="sub-icon">🍸</div>
+      <h3>Cocktail Library</h3>
+      <p>浏览全球经典配方</p>
+    </a>
+
+    <a href="/ingredients" class="sub-card">
+      <div class="sub-icon">🍋</div>
+      <h3>Ingredients</h3>
+      <p>管理你的基酒与素材</p>
+    </a>
+
+    <a href="/cocktails/new" class="sub-card highlight">
+      <div class="sub-icon">✍️</div>
+      <h3>Create Recipe</h3>
+      <p>记录你的独家灵感</p>
+    </a>
+
+    <a href="/users" class="sub-card">
+      <div class="sub-icon">👥</div>
+      <h3>Community</h3>
+      <p>寻找志同道合的酒友</p>
+    </a>
+  </div>
+</div>

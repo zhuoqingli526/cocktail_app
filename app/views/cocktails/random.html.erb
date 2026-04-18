@@ -1,27 +1,28 @@
-<style>
- .cocktail-card {
-    max-width: 500px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    background-color: #fafafa;
-  }
-</style>
+<div class="shake-page-container">
+  <div class="shake-header">
+    <h1 class="display-title">Shake It Up!</h1>
+    <p class="subtitle">让命运决定你今晚喝哪一杯</p>
+  </div>
 
-<h1>Shake It Up!</h1>
-
-<div class="cocktail-card">
-  <h2><%= @the_cocktail.cocktail_name %></h2>
-
-  <img src="<%= @the_cocktail.image_url.url %>" width="240" height="300">
-
-  <p><%= @the_cocktail.description %></p>
-
-  <p>
-    <a href="/cocktails/<%= @the_cocktail.id %>">Show details</a>
-  </p>
-
-  <form action="/random_cocktail" method="get">
-    <button>Shake Again</button>
-  </form>
+  <div class="random-showcase">
+    <div class="random-card">
+      <div class="random-img-wrapper">
+        <img src="<%= @the_cocktail.image_url.url %>" alt="Surprise!">
+      </div>
+      <div class="random-body">
+        <h2 class="random-name"><%= @the_cocktail.cocktail_name %></h2>
+        <p class="random-desc"><%= truncate(@the_cocktail.description, length: 100) %></p>
+        
+        <div class="random-actions">
+          <a href="/cocktails/<%= @the_cocktail.id %>" class="btn-action">View Full Recipe</a>
+          
+          <form action="/random_cocktail" method="get" style="display:inline">
+            <button class="btn-shake-again">
+              <span class="icon">🔄</span> Shake Again
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

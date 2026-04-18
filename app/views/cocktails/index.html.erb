@@ -1,108 +1,27 @@
-<div>
-  <div>
-    <h1>
-      Cocktail Library
-    </h1>
-  </div>
+<div class="library-header">
+  <h1 class="display-title">Cocktail Library</h1>
+  <p class="subtitle">探索全球经典与创意调酒</p>
 </div>
 
-
-
-<div>
-  <div>
-    <table border="1">
-      <tr>
-
-        <th>
-          Cocktail name
-        </th>
-
-        <th>
-          Image
-        </th>
-
-        <th>
-          Description
-        </th>
-
-        <th>
-          Instructions
-        </th>
-
-        <th>
-          Abv
-        </th>
-
-        <th>
-          Taste
-        </th>
-
-        <th>
-          Creator
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Likes
-        </th>
-
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_cocktails.each do |a_cocktail| %>
-      <tr>
-
-        <td>
-          <%= a_cocktail.cocktail_name %>
-        </td>
-        
-        <td>
-          <img src="<%= a_cocktail.image_url.url %>" width="200" height="300">
-        </td>
-
-        <td>
-          <%= a_cocktail.description %>
-        </td>
-
-        <td>
-          <%= a_cocktail.instructions %>
-        </td>
-
-        <td>
-          <%= a_cocktail.abv %>
-        </td>
-
-        <td>
-          <%= a_cocktail.taste %>
-        </td>
-
-        <td>
-          <% the_user = a_cocktail.user %>
-          <%= the_user.username %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_cocktail.created_at) %> ago
-        </td>
-
-        <td>
-          <%= a_cocktail.likes.count %>
-        </td>
-
-        <td>
-          <a href="/cocktails/<%= a_cocktail.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
+<div class="cocktail-grid">
+  <% @list_of_cocktails.each do |a_cocktail| %>
+    <a href="/cocktails/<%= a_cocktail.id %>" class="cocktail-card">
+      <div class="card-image">
+        <img src="<%= a_cocktail.image_url.url %>" alt="<%= a_cocktail.cocktail_name %>">
+        <div class="card-badge"><%= a_cocktail.abv %>% ABV</div>
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span class="taste-tag"><%= a_cocktail.taste %></span>
+          <span class="likes-count">❤️ <%= a_cocktail.likes.count %></span>
+        </div>
+        <h3 class="card-title text-truncate"><%= a_cocktail.cocktail_name %></h3>
+        <p class="card-description"><%= truncate(a_cocktail.description, length: 60) %></p>
+        <div class="card-footer">
+          <span>By <strong><%= a_cocktail.user.username %></strong></span>
+          <span class="time"><%= time_ago_in_words(a_cocktail.created_at) %> ago</span>
+        </div>
+      </div>
+    </a>
+  <% end %>
 </div>
-
-<hr>

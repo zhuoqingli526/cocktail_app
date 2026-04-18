@@ -1,102 +1,51 @@
-<div>
-  <div>
-    <h1>
-      List of all cocktail comments
-    </h1>
+<div class="creator-container">
+  <div class="creator-header">
+    <h1 class="display-title">Community Feedback</h1>
+    <p class="subtitle">管理所有关于鸡尾酒的灵感碰撞</p>
   </div>
-</div>
 
-<hr>
-
-<div>
-  <div>
-    <h2>
-      Add a new cocktail comment
-    </h2>
-
-    <form action="/insert_cocktail_comment" method="post">
-      <div>
-        <label for="cocktail_id_box">
-          Cocktail
-        </label>
-
-        <input type="text" id="cocktail_id_box" name="query_cocktail_id">
+  <div class="form-card">
+    <div class="section-header">
+      <span class="section-num">+</span>
+      <h3>Quick Comment</h3>
+    </div>
+    
+    <form action="/insert_cocktail_comment" method="post" class="creative-form">
+      <div class="input-row-grid">
+        <div class="input-floating">
+          <input type="text" id="cocktail_id_box" name="query_cocktail_id" placeholder=" ">
+          <label for="cocktail_id_box">Cocktail ID</label>
+        </div>
+        <div class="input-floating">
+          <input type="text" id="user_id_box" name="query_user_id" placeholder=" ">
+          <label for="user_id_box">User ID</label>
+        </div>
       </div>
-
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id">
+      <div class="form-footer" style="padding: 0; text-align: right;">
+        <button class="btn-primary" style="padding: 10px 30px;">Post Comment</button>
       </div>
-
-      <button>
-        Create cocktail comment
-      </button>
     </form>
   </div>
-</div>
 
-<hr>
-<div>
-  <div>
-    <table border="1">
-      <tr>
-        <th>
-          ID
-        </th>
-
-        <th>
-          Cocktail
-        </th>
-
-        <th>
-          User
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_cocktail_comments.each do |a_cocktail_comment| %>
-      <tr>
-        <td>
-          <%= a_cocktail_comment.id %>
-        </td>
-
-        <td>
-          <%= a_cocktail_comment.cocktail_id %>
-        </td>
-
-        <td>
-          <%= a_cocktail_comment.user_id %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_cocktail_comment.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_cocktail_comment.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/cocktail_comments/<%= a_cocktail_comment.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
+  <div class="comment-feed">
+    <% @list_of_cocktail_comments.each do |a_cocktail_comment| %>
+      <div class="comment-item-card">
+        <div class="comment-main">
+          <div class="comment-info">
+            <span class="id-badge">#<%= a_cocktail_comment.id %></span>
+            <span class="comment-subject">
+              User <strong><%= a_cocktail_comment.user_id %></strong> 
+              commented on Cocktail <strong><%= a_cocktail_comment.cocktail_id %></strong>
+            </span>
+          </div>
+          <div class="comment-time">
+            <%= time_ago_in_words(a_cocktail_comment.created_at) %> ago
+          </div>
+        </div>
+        <div class="comment-actions">
+          <a href="/cocktail_comments/<%= a_cocktail_comment.id %>" class="btn-text">Manage Details →</a>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
-
-<hr>

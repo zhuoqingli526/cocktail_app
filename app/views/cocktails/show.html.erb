@@ -1,162 +1,112 @@
-<div>
-  <div>
-    <h1>
-      Cocktail details
-    </h1>
-
-    <div>
-      <div>
-        <a href="/cocktails">
-          Go back
-        </a>
+<div class="detail-container">
+  <div class="nav-wrapper">
+    <a href="/cocktails" class="back-btn-elegant">
+      <div class="btn-icon-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
       </div>
+      <span class="btn-text">Back to Library</span>
+    </a>
+  </div>
+
+  <div class="detail-layout">
+    <div class="detail-visual">
+      <img src="<%= @the_cocktail.image_url.url %>" class="hero-image">
     </div>
 
-    <dl>
-      <dt>
-        Cocktail name
-      </dt>
-      <dd>
-        <%= @the_cocktail.cocktail_name %>
-      </dd>
+    <div class="detail-info">
+      <div class="info-header">
+        <h1 class="cocktail-name"><%= @the_cocktail.cocktail_name %></h1>
+        <div class="info-meta">
+          <span class="badge"><%= @the_cocktail.taste %></span>
+          <span class="badge"><%= @the_cocktail.abv %>% ABV</span>
+          <span class="creator">Created by <strong><%= @the_cocktail.user.username %></strong></span>
+        </div>
+      </div>
 
-      <dt>
-        Image
-      </dt>
-      <dd>
-        <img src="<%= @the_cocktail.image_url.url %>" width="200" height="300">
-      </dd>
+      <div class="info-section">
+        <h4>The Story</h4>
+        <p class="description"><%= @the_cocktail.description %></p>
+      </div>
 
-      <dt>
-        Description
-      </dt>
-      <dd>
-        <%= @the_cocktail.description %>
-      </dd>
+      <div class="info-section">
+        <h4>Ingredients</h4>
+        <ul class="ingredient-list">
+          <% @the_cocktail.cocktail_ingredients.includes(:ingredient).each do |item| %>
+            <li>
+              <span class="ing-name"><%= item.ingredient.name %></span>
+              <span class="ing-dots"></span>
+              <span class="ing-amount"><%= item.unit_ml %> ml</span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
 
-      <dt>
-        Ingredients
-      </dt>
-      <dd>
-        <% @the_cocktail.cocktail_ingredients.includes(:ingredient).each do |a_ingredient| %>
-          <li><%= "#{a_ingredient.ingredient.name} – #{a_ingredient.unit_ml} ml" %></li>
-        <% end %>
-      </dd>
+      <div class="info-section">
+        <h4>Instructions</h4>
+        <div class="instructions-box">
+          <%= @the_cocktail.instructions %>
+        </div>
+      </div>
 
-      <dt>
-        Instructions
-      </dt>
-      <dd>
-        <%= @the_cocktail.instructions %>
-      </dd>
-
-      <dt>
-        Abv
-      </dt>
-      <dd>
-        <%= @the_cocktail.abv %>
-      </dd>
-
-      <dt>
-        Taste
-      </dt>
-      <dd>
-        <%= @the_cocktail.taste %>
-      </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_cocktail.created_at) %> ago
-      </dd>
-
-      <dt>
-        Likes count
-      </dt>
-      <dd>
-        <%= @the_cocktail.likes.count %>
-      </dd>
-
-      <dt>
-        Comments count
-      </dt>
-      <dd>
-        <%= @the_cocktail.comments.count %>
-      </dd>
-
-      <dt>
-        Creator
-      </dt>
-      <dd>
-        <% @the_user = @the_cocktail.user %>
-        <%= @the_user.username %>
-      </dd>
-
-      <dt>
-        Fans
-      </dt>
-      <dd>
-        <%= "Liked by: " + @the_cocktail.likes.map { |like| like.user.username }.join(', ') %>
-      </dd>
-
-
-      <dt>Add a fan</dt>
-      <dd>
+      <div class="action-bar">
         <% existing_like = @the_cocktail.likes.find_by(user_id: current_user.id) %>
-
         <% if existing_like %>
-          <form action="/delete_cocktail_like/<%= existing_like.id %>" method="get">
-            <button>Unlike</button>
-          </form>
+          <%= link_to "❤️ Unlike (#{@the_cocktail.likes.count})", "/delete_cocktail_like/#{existing_like.id}", class: "btn-action active" %>
         <% else %>
-          <form action="/insert_cocktail_like" method="post">
+          <form action="/insert_cocktail_like" method="post" style="display:inline">
             <input type="hidden" name="query_cocktail_id" value="<%= @the_cocktail.id %>">
-            <input type="hidden" name="query_user_id"    value="<%= current_user.id %>">
-            <button>Like</button>
+            <input type="hidden" name="query_user_id" value="<%= current_user.id %>">
+            <button class="btn-action">🤍 Like (<%= @the_cocktail.likes.count %>)</button>
           </form>
         <% end %>
-      </dd>
 
-       <% if current_user == @the_user %>
-        <dt>Delete cocktail</dt>
-        <dd>
-          <a href="/delete_cocktail/<%= @the_cocktail.id %>">Delete this cocktail</a>
-        </dd>
-      <% end %>
-
-    </dl>
+        <% if current_user == @the_cocktail.user %>
+          <a href="/delete_cocktail/<%= @the_cocktail.id %>" class="btn-delete" onclick="return confirm('确定要删除吗？')">Delete</a>
+        <% end %>
+      </div>
+    </div>
   </div>
+
+  <section class="comments-section">
+    <div class="comments-header">
+      <h3>Comments <span class="comment-count">(<%= @the_cocktail.comments.count %>)</span></h3>
+    </div>
+
+    <div class="comments-list">
+      <% @the_cocktail.comments.each do |c| %>
+        <div class="comment-item-elegant">
+          <div class="comment-avatar">
+            <%= c.user.username[0].upcase %>
+          </div>
+          
+          <div class="comment-content-wrapper">
+            <div class="comment-user-meta">
+              <span class="user-name"><%= c.user.username %></span>
+              <span class="comment-date"><%= c.created_at.strftime("%b %d, %Y") %></span>
+            </div>
+            <div class="comment-text-body">
+              <%= c.comment_text %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="comment-form-container">
+      <form action="/insert_cocktail_comment" method="post" class="elegant-comment-form">
+        <input type="hidden" name="query_cocktail_id" value="<%= @the_cocktail.id %>">
+        <input type="hidden" name="query_user_id" value="<%= current_user.id %>">
+        
+        <div class="textarea-wrapper">
+          <textarea name="query_body" placeholder="Share your tasting notes..." required></textarea>
+          <button type="submit" class="btn-send-comment">
+            Post
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
 </div>
-
-<hr>
-
-<h2>Comments</h2>
-
-<table border="1">
-  <tr>
-    <th>Commenter</th>
-    <th>Comment</th>
-    <th>Posted</th>
-  </tr>
-  
-  <% @the_cocktail.comments.each do |a_comment| %>
-    <tr>
-      <td><%= a_comment.user.username %></td>
-      <td><%= a_comment.comment_text %></td>
-      <td><%= a_comment.created_at.strftime("%Y-%m-%d %H:%M") %></td>
-    </tr>  
-  <% end %>
-</table>
-
-<h3>Add a new comment</h3>
-
-<form action="/insert_cocktail_comment" method="post">
-  <input type="hidden" name="query_cocktail_id" value="<%= @the_cocktail.id %>">
-  <input type="hidden" name="query_user_id" value="<%= current_user.id %>">
-  
-  <label for="browser_comment">Comment</label>
-  <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
-
-  <button>Add comment</button>
-</form>

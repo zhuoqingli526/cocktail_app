@@ -1,72 +1,111 @@
-<h1>Add a new cocktail</h1>
-
-
-<style>
-  .required-label::after {
-    content: " *";
-    color: red;
-  }
-</style>
-
-<form action="/insert_cocktail" method="post" enctype="multipart/form-data">
-  <div>
-    <label for="cocktail_name_box" class="required-label">Cocktail name</label>
-    <input id="cocktail_name_box" type="text" name="the_cocktail_name">
+<div class="creator-container">
+  <div class="creator-header">
+    <span class="step-indicator">Step by Step</span>
+    <h1 class="display-title">Create a Masterpiece</h1>
   </div>
 
-  <div>
-    <label for="description_box" class="required-label">Description</label>
-    <textarea id="description_box" type="text" name="the_description" cols="20" rows="5"></textarea>
-  </div>
+  <form action="/insert_cocktail" method="post" enctype="multipart/form-data" class="creative-form">
+    
+    <div class="form-card visual-card">
+      <div class="upload-zone" onclick="document.getElementById('image_url_box').click()">
+        <div class="upload-placeholder">
+          <div class="upload-icon">📸</div>
+          <p>Tap to upload a beautiful photo</p>
+          <span class="upload-btn-fake">Select Image</span>
+        </div>
+        <input id="image_url_box" type="file" name="the_image_url" class="hidden-file-input" required onchange="previewImage(this)">
+        <img id="image_preview" class="image-preview-el hidden" src="#" alt="Preview">
+      </div>
+    </div>
 
-  <div>
-    <label for="instructions_box" class="required-label">Instructions</label>
-    <textarea id="instructions_box" type="text" name="the_instructions" cols="20" rows="5"></textarea>
-  </div>
+    <div class="form-card info-card">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h3>The Identity</h3>
+      </div>
+      
+      <div class="input-floating">
+        <input id="cocktail_name_box" type="text" name="the_cocktail_name" placeholder=" " required>
+        <label for="cocktail_name_box">Cocktail Name</label>
+      </div>
 
-  <div>
-    <label for="abv_box" class="required-label">Abv</label>
-    <input id="abv_box" type="text" name="the_abv">
-  </div>
+      <div class="input-row-grid">
+        <div class="input-floating">
+          <input id="abv_box" type="text" name="the_abv" placeholder=" " required>
+          <label for="abv_box">ABV (%)</label>
+        </div>
+        <div class="input-floating">
+          <input id="taste_box" type="text" name="the_taste" placeholder=" ">
+          <label for="taste_box">Overall Taste (e.g. Sweet & Sour)</label>
+        </div>
+      </div>
 
-  <div>
-    <label for="taste_box" class="required-label">Taste</label>
-    <textarea id="taste_box" type="text" name="the_taste" cols="20" rows="5"></textarea>
-  </div>
+      <div class="input-floating">
+        <textarea id="description_box" name="the_description" rows="2" placeholder=" " required></textarea>
+        <label for="description_box">The Story / Description</label>
+      </div>
+    </div>
 
-  <div>
-    <label for="image_url_box" class="required-label">Image</label>
-    <input id="image_url_box" type="file" name="the_image_url">
-  </div>
+    <div class="form-card recipe-card">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h3>The Recipe</h3>
+        <span class="section-hint">At least 1 ingredient</span>
+      </div>
 
-
-  <hr>
-  <h3>Ingredients (At least 1 ingredient. Add as many as you like.)</h3>
-
-  <% 8.times do |i| %>
-    <fieldset style="margin-bottom: 0.8rem; border: 1px dashed #aaa;">
-      <legend>Ingredient <%= i + 1 %></legend>
-
-      <label for="ingredient_name" >Ingredient name</label>
-      <input id = "ingredient_name" type="text" name="ingredient_names[]">
-
-      <label for="ingredient_cat">Category</label>
-      <select id="ingredient_cat" name="ingredient_category_ids[]">
-        <% IngredientCategory.all.each do |category| %>
-          <option value="<%= category.id %>"><%= category.name %></option>
+      <div class="ingredients-list-grid">
+        <% 8.times do |i| %>
+          <div class="ingredient-item-card">
+            <div class="item-header">Ingredient #<%= i + 1 %></div>
+            <div class="item-body">
+              <input type="text" name="ingredient_names[]" placeholder="Name (e.g. Gin)">
+              <div class="item-row">
+                <select name="ingredient_category_ids[]">
+                  <% IngredientCategory.all.each do |category| %>
+                    <option value="<%= category.id %>"><%= category.name %></option>
+                  <% end %>
+                </select>
+                <input type="text" name="ingredient_unit_mls[]" placeholder="ml" class="narrow-input">
+              </div>
+              <input type="text" name="ingredient_abvs[]" placeholder="Alcohol % (Optional)" class="full-width-small">
+              <textarea name="ingredient_description[]" placeholder="Note (Optional)" rows="1"></textarea>
+            </div>
+          </div>
         <% end %>
-      </select>
+      </div>
+    </div>
 
-      <label for ="ingredient_des">Description</label>
-      <textarea id ="ingredient_des" type="text" name="ingredient_description[]" cols="30" rows="0.5"></textarea>
+    <div class="form-card prep-card">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h3>Preparation</h3>
+      </div>
+      <div class="input-floating">
+        <textarea id="instructions_box" name="the_instructions" rows="5" placeholder=" " required></textarea>
+        <label for="instructions_box">How to craft this cocktail?</label>
+      </div>
+    </div>
 
-      <label for="abv" >ABV</label>
-      <input id ="abv" type="text" name="ingredient_abvs[]">
+    <div class="form-footer">
+      <button class="btn-publish">
+        <span class="btn-icon">✨</span> Publish to Library
+      </button>
+    </div>
+  </form>
+</div>
 
-      <label for="ml">ml</label>
-      <input id="ml" type="text" name="ingredient_unit_mls[]">
-    </fieldset>
-  <% end %>
-
-  <button>Create cocktail</button>
-</form>
+<script>
+function previewImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var preview = document.getElementById('image_preview');
+      var placeholder = document.querySelector('.upload-placeholder');
+      preview.src = e.target.result;
+      preview.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>

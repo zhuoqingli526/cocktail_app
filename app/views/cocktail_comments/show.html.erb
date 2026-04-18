@@ -1,86 +1,56 @@
-<div>
-  <div>
-    <h1>
-      Cocktail comment #<%= @the_cocktail_comment.id %> details
-    </h1>
+<div class="creator-container">
+  <div class="back-nav">
+    <a href="/cocktail_comments">← Back to Feed</a>
+  </div>
 
-    <div>
-      <div>
-        <a href="/cocktail_comments">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_cocktail_comment/<%= @the_cocktail_comment.id %>">
-          Delete cocktail comment
-        </a>
+  <div class="form-card info-card">
+    <div class="section-header">
+      <span class="section-num">ID</span>
+      <h3>Comment #<%= @the_cocktail_comment.id %> Details</h3>
+      <div style="margin-left: auto;">
+        <%= link_to "Delete Entry", "/delete_cocktail_comment/#{@the_cocktail_comment.id}", class: "btn-delete", style: "font-size: 0.8rem;", data: { confirm: "Are you sure?" } %>
       </div>
     </div>
 
-    <dl>
-      <dt>
-        Cocktail
-      </dt>
-      <dd>
-        <%= @the_cocktail_comment.cocktail_id %>
-      </dd>
-
-      <dt>
-        User
-      </dt>
-      <dd>
-        <%= @the_cocktail_comment.user_id %>
-      </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_cocktail_comment.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_cocktail_comment.updated_at) %> ago
-      </dd>
-    </dl>
+    <div class="detail-display-grid">
+      <div class="detail-unit">
+        <label>Cocktail Source</label>
+        <p>ID: <%= @the_cocktail_comment.cocktail_id %></p>
+      </div>
+      <div class="detail-unit">
+        <label>Commenter</label>
+        <p>User ID: <%= @the_cocktail_comment.user_id %></p>
+      </div>
+      <div class="detail-unit">
+        <label>Timeline</label>
+        <p>Created <%= time_ago_in_words(@the_cocktail_comment.created_at) %> ago</p>
+        <p><small style="color: #94a3b8">Updated <%= time_ago_in_words(@the_cocktail_comment.updated_at) %> ago</small></p>
+      </div>
+    </div>
   </div>
-</div>
 
-<hr>
+  <div class="form-card">
+    <div class="section-header">
+      <span class="section-num">✎</span>
+      <h3>Modify Comment</h3>
+    </div>
 
+    <form action="/modify_cocktail_comment/<%= @the_cocktail_comment.id %>" method="post" class="creative-form">
+      <div class="input-row-grid">
+        <div class="input-floating">
+          <input type="text" id="cocktail_id_box" name="query_cocktail_id" value="<%= @the_cocktail_comment.cocktail_id %>" placeholder=" ">
+          <label for="cocktail_id_box">Update Cocktail ID</label>
+        </div>
 
-<div>
-  <div>
-    <h2>
-      Edit cocktail comment
-    </h2>
-
-    <form action="/modify_cocktail_comment/<%= @the_cocktail_comment.id %>"  method="post" >
-      <div>
-        <label for="cocktail_id_box">
-          Cocktail
-        </label>
-
-        <input type="text" id="cocktail_id_box" name="query_cocktail_id" value="<%= @the_cocktail_comment.cocktail_id %>">
+        <div class="input-floating">
+          <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_cocktail_comment.user_id %>" placeholder=" ">
+          <label for="user_id_box">Update User ID</label>
+        </div>
       </div>
 
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_cocktail_comment.user_id %>">
+      <div class="form-footer" style="padding: 0;">
+        <button class="btn-primary">Update Records</button>
       </div>
-
-      <button>
-        Update cocktail comment
-      </button>
     </form>
   </div>
 </div>
-
-<hr>
