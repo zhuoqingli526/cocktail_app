@@ -10,17 +10,20 @@
         <img src="<%= a_cocktail.image_url.url %>" alt="<%= a_cocktail.cocktail_name %>">
         <div class="card-badge"><%= a_cocktail.abv %>% ABV</div>
       </div>
+
       <div class="card-content">
-        <div class="card-meta">
+        <div class="card-header-row">
+          <h3 class="card-title"><%= a_cocktail.cocktail_name %></h3>
+          <span class="card-likes">❤️ <%= a_cocktail.likes.count %></span>
+        </div>
+
+      <div class="card-meta">
           <span class="taste-tag"><%= a_cocktail.taste %></span>
-          <span class="likes-count">❤️ <%= a_cocktail.likes.count %></span>
         </div>
-        <h3 class="card-title text-truncate"><%= a_cocktail.cocktail_name %></h3>
-        <p class="card-description"><%= truncate(a_cocktail.description, length: 60) %></p>
-        <div class="card-footer">
-          <span>By <strong><%= a_cocktail.user.username %></strong></span>
-          <span class="time"><%= time_ago_in_words(a_cocktail.created_at) %> ago</span>
-        </div>
+
+        <p class="card-description">
+          <%= truncate(a_cocktail.description, length: 70) %>
+        </p>
       </div>
     </a>
   <% end %>

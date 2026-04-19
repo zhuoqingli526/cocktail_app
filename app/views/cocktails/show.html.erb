@@ -19,20 +19,34 @@
     <div class="detail-info">
       <div class="info-header">
         <h1 class="cocktail-name"><%= @the_cocktail.cocktail_name %></h1>
-        <div class="info-meta">
-          <span class="badge"><%= @the_cocktail.taste %></span>
-          <span class="badge"><%= @the_cocktail.abv %>% ABV</span>
-          <span class="creator">Created by <strong><%= @the_cocktail.user.username %></strong></span>
+        <div class="creator-tag">
+          Created by <strong><%= @the_cocktail.user.username %></strong> 
+          <span class="time-ago">• <%= time_ago_in_words(@the_cocktail.created_at) %> ago</span>
+        </div>
+      </div>
+
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="spec-label">TASTE</span>
+          <span class="spec-value"><%= @the_cocktail.taste %></span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">STRENGTH</span>
+          <span class="spec-value"><%= @the_cocktail.abv %>% ABV</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">LIKES</span>
+          <span class="spec-value"><%= @the_cocktail.likes.count %></span>
         </div>
       </div>
 
       <div class="info-section">
-        <h4>The Story</h4>
+        <h4 class="section-title">The Story</h4>
         <p class="description"><%= @the_cocktail.description %></p>
       </div>
 
       <div class="info-section">
-        <h4>Ingredients</h4>
+        <h4 class="section-title">Ingredients</h4>
         <ul class="ingredient-list">
           <% @the_cocktail.cocktail_ingredients.includes(:ingredient).each do |item| %>
             <li>
@@ -45,7 +59,7 @@
       </div>
 
       <div class="info-section">
-        <h4>Instructions</h4>
+        <h4 class="section-title">Preparation</h4>
         <div class="instructions-box">
           <%= @the_cocktail.instructions %>
         </div>
@@ -54,12 +68,12 @@
       <div class="action-bar">
         <% existing_like = @the_cocktail.likes.find_by(user_id: current_user.id) %>
         <% if existing_like %>
-          <%= link_to "❤️ Unlike (#{@the_cocktail.likes.count})", "/delete_cocktail_like/#{existing_like.id}", class: "btn-action active" %>
+          <%= link_to "❤️ Unlike", "/delete_cocktail_like/#{existing_like.id}", class: "btn-action active" %>
         <% else %>
           <form action="/insert_cocktail_like" method="post" style="display:inline">
             <input type="hidden" name="query_cocktail_id" value="<%= @the_cocktail.id %>">
             <input type="hidden" name="query_user_id" value="<%= current_user.id %>">
-            <button class="btn-action">🤍 Like (<%= @the_cocktail.likes.count %>)</button>
+            <button class="btn-action">🤍 Like</button>
           </form>
         <% end %>
 

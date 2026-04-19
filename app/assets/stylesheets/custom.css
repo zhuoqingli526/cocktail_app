@@ -276,7 +276,54 @@
   font-size: 0.8rem;
 }
 
-.card-content { padding: 20px; }
+.card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* 每一行之间的固定间距，增加结构感 */
+}
+
+.card-meta {
+  margin: 4px 0 10px 0; /* 增加下方间距，与描述拉开距离 */
+}
+
+.taste-tag {
+  display: inline-block;
+  font-size: 0.65rem;        /* 极小字号，体现精致感 */
+  font-weight: 600;
+  color: #999;               /* 浅灰色，不抢戏 */
+  text-transform: uppercase; /* 全大写，增加结构化感觉 */
+  letter-spacing: 1px;       /* 增加字间距，更容易阅读 */
+  
+  /* 优雅的标签外形 */
+  padding: 2px 8px;
+  border: 1px solid #eee;    /* 极细的浅色边框 */
+  border-radius: 100px;      /* 圆润的长椭圆 */
+  background-color: #fafafa; /* 极浅的底色 */
+}
+
+/* 3. 描述：正常黑色展示，字体大于标签 */
+.card-description {
+  font-size: 0.95rem;        /* 明显大于标签字号 */
+  line-height: 1.6;
+  color: #333;               /* 接近纯黑，方便阅读 */
+  font-weight: 400;          /* 标准粗细 */
+  margin: 0;
+  
+  /* 多行截断保持 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 第一行：标题与点赞的布局 */
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* 垂直居中 */
+  gap: 10px;
+}
 
 /* 详情页 Editorial 布局 */
 .detail-layout {
@@ -958,11 +1005,16 @@ input:focus, textarea:focus { border-color: var(--accent-color); outline: none; 
 }
 
 .card-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  margin: 5px 0 10px;
-  color: #3E3A35;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333; /* 统一颜色 */
+  flex: 1; /* 让标题占用剩余空间 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 /* 按钮样式优化 */
 .btn-follow-gold {
@@ -1110,4 +1162,59 @@ input:focus, textarea:focus { border-color: var(--accent-color); outline: none; 
   border-top: 1px solid #eee;
   font-size: 0.9rem;
   color: #666;
+}
+
+
+/* 参数栅栏样式 */
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 25px 0;
+  padding: 15px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spec-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #999;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.spec-value {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 标题区微调 */
+.creator-tag {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 8px;
+}
+
+.time-ago {
+  color: #aaa;
+  font-style: italic;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;        /* 保持加粗 */
+  color: #333;             /* 这里的颜色可以改成和你正文标题一致的颜色 */
+  margin-bottom: 15px;
+  border-left: none;       /* 核心：移除左侧的竖线 */
+  padding-left: 0;         /* 移除缩进，让文字左对齐 */
+  text-transform: uppercase; /* 可选：让小标题全大写，增加“结构感” */
+  letter-spacing: 0.5px;   /* 可选：增加一点字间距，看起来更精致 */
 }
